@@ -1,0 +1,26 @@
+{
+  "name": "thread-api-final",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "app-root-path": "^3.1.0",
+    "bcrypt": "^5.1.1",
+    "bullmq": "^5.2.1",
+    "dotenv": "^16.4.4",
+    "knex": "^3.1.0",
+    "nodemailer": "^6.9.9",
+    "objection": "^3.1.4",
+    "pg": "^8.11.3",
+    "ts-node": "^10.9.2"
+  }
+}
