@@ -1,59 +1,46 @@
-import appRootPath from "app-root-path";
-// Update with your config settings.
+import appRootPath from 'app-root-path';
+import configs from '../../../config/default';
 
-/**
- * @type { Object.<string, import("knex").Knex.Config> }
- */
-const config = {
+const config: any = {
+    development: {
+        client: 'pg',
+        connection: configs.database.test_url,
+        migrations: {
+            directory: `${appRootPath.path}/database/migrations`,
+        },
+    },
 
-  development: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+    staging: {
+        client: 'postgresql',
+        connection: {
+            database: 'my_db',
+            user: 'username',
+            password: 'password',
+        },
+        pool: {
+            min: 2,
+            max: 10,
+        },
+        migrations: {
+            directory: `${appRootPath.path}/database/migrations`,
+        },
     },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      directory:`${appRootPath.path}/database/migrations`
-    }
-  },
 
-  staging: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+    production: {
+        client: 'postgresql',
+        connection: {
+            database: 'my_db',
+            user: 'username',
+            password: 'password',
+        },
+        pool: {
+            min: 2,
+            max: 10,
+        },
+        migrations: {
+            directory: `${appRootPath.path}/database/migrations`,
+        },
     },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      directory:`${appRootPath.path}/database/migrations`
-    }
-  },
-
-  production: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      directory:`${appRootPath.path}/database/migrations`
-    }
-  }
-
 };
 
-export default config
+export default config;

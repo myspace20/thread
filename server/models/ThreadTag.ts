@@ -1,7 +1,7 @@
-import { Model } from "objection";
+import { Model } from 'objection';
 
-export default class ThreadTag extends Model{
-    static get tableName(){
-        return 'thread_tags'
+export default class ThreadTag extends Model {
+    static get tableName() {
+        return 'thread_tags';
     }
 }

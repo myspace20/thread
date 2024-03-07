@@ -1,9 +1,15 @@
-import { Model } from "objection";
-import { User } from "./User";
+import { Model, ModelObject } from 'objection';
+import User from './User';
 
-export default class Auth extends Model{
-    static get tableName(){
-        return 'auth'
+export default class Auth extends Model {
+    id: string;
+    valid: boolean;
+    user_id: string;
+    created_at: Date;
+    updated_at: Date;
+
+    static get tableName() {
+        return 'auth';
     }
 
     static relationMappings = {
@@ -12,8 +18,10 @@ export default class Auth extends Model{
             modelClass: User,
             join: {
                 from: 'auth.user_id',
-                to: 'users.id'
-            }
-        }
+                to: 'users.id',
+            },
+        },
     };
 }
+
+export type typeAuth = ModelObject<Auth>;

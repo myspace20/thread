@@ -1,12 +1,11 @@
-import Auth from "./Auth";
-import Comment from "./Comment";
-import Post from "./Post";
-import Tag from "./Tag";
-import Thread from "./Thread";
-import ThreadTag from "./ThreadTag";
-import User from "./User";
-import Vote from "./Vote";
-
+import Auth from './Auth';
+import Comment from './Comment';
+import Post from './Post';
+import Tag from './Tag';
+import Thread from './Thread';
+import ThreadTag from './ThreadTag';
+import User from './User';
+import Vote from './Vote';
 
 const TABLE = {
     AUTH: Auth,
@@ -16,7 +15,7 @@ const TABLE = {
     THREAD: Thread,
     THREADTAG: ThreadTag,
     VOTE: Vote,
-    COMMENT: Comment
-}
+    COMMENT: Comment,
+};
 
-export default TABLE
+export default TABLE;
