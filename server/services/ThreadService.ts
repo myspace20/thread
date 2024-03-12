@@ -1,5 +1,4 @@
 import ThreadRepository, { tagsArr, threadFilter, threadObj, threadPatch } from '../repositories/ThreadRepository';
-import { HttpError } from '../util/HttpError';
 
 class ThreadService {
     private threadRepository = new ThreadRepository();

@@ -1,6 +1,7 @@
 import TABLE from '../models';
 import { HttpError } from '../util/HttpError';
 import { typeAuth } from '../models/Auth';
+import { userId } from '../interfaces';
 
 type authInsert = Pick<typeAuth, 'user_id'>;
 
@@ -11,8 +12,8 @@ class AuthRepository {
         return authSession;
     }
 
-    async create(authObj: authInsert) {
-        return await TABLE.AUTH.query().insert(authObj);
+    async create(id: userId) {
+        return await TABLE.AUTH.query().insert({ user_id: id, valid: true });
     }
 
     async patch(id: string) {

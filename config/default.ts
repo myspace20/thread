@@ -24,11 +24,11 @@ const configs = {
         algorithm: 'RS256',
     },
     keys: {
-        accessTokenPublicKey: process.env.ACCESS_TOKEN_PUBLIC_KEY,
-        accessTokenPrivateKey: process.env.ACCESS_TOKEN_PRIVATE_KEY,
+        accessTokenPublicKey: process.env.ACCESS_TOKEN_PUBLIC_KEY as string,
+        accessTokenPrivateKey: process.env.ACCESS_TOKEN_PRIVATE_KEY as string,
 
-        refreshTokenPrivateKey: process.env.REFRESH_TOKEN_PRIVATE_KEY,
-        refreshTokenPublicKey: process.env.REFRESH_TOKEN_PUBLIC_KEY,
+        refreshTokenPrivateKey: process.env.REFRESH_TOKEN_PRIVATE_KEY as string,
+        refreshTokenPublicKey: process.env.REFRESH_TOKEN_PUBLIC_KEY as string,
     },
 
     salt: process.env.SALT,

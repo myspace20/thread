@@ -4,10 +4,11 @@ import { typeUser } from '../models/User';
 
 //USER
 type User = typeUser;
-type userId = Pick<User, 'id'>;
-type createUser = Pick<User, 'email' | 'display_name' | 'password_hash'>;
-type userProfile = Required<Pick<User, 'description' | 'image_url'>>;
-type userPassword = Pick<User, 'password_hash'>;
+export type userId = string;
+export type createUser = Pick<User, 'email' | 'display_name' | 'password_hash'>;
+export type userProfile = Required<Pick<User, 'description' | 'image_url'>>;
+export type userPassword = Pick<User, 'password_hash'>;
+export type activateUser = Pick<User, 'active' | 'profile_complete'>;
 
 //POST
 type Post = PostShape;

@@ -15,15 +15,6 @@ import config from '../infra/database/knexfile';
 //     updated_at?: Date,
 // }
 
-enum ProfileComplete {
-    true,
-    false,
-}
-
-enum Active {
-    true,
-    false,
-}
 enum Role {
     'basic',
     'moderator',
@@ -31,17 +22,17 @@ enum Role {
 }
 
 export default class User extends Model {
-    id?: string;
+    id: string;
     email: string;
     display_name: string;
     password_hash: string;
-    active?: Active;
+    active: boolean;
     description?: string;
     image_url?: string;
     role?: Role;
-    profile_complete?: ProfileComplete;
-    created_at?: Date;
-    updated_at?: Date;
+    profile_complete: boolean;
+    created_at: Date;
+    updated_at: Date;
 
     static get tableName() {
         return 'users';

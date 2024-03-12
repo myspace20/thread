@@ -34,7 +34,7 @@ class ThreadRepository {
         try {
             const thread = await TABLE.THREAD.query(trx).insert(threadData);
             const threadTagsIds = tags.map((id) => ({ thread_id: thread.id, tag_id: id }));
-            await TABLE.THREADTAG.query(trx).insert(threadTagsIds);
+            await TABLE.THREADTAG.query(trx).insert(threadTagsIds).returning('*');
             trx.commit();
             return 'thread successfully created';
         } catch (e) {

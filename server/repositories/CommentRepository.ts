@@ -33,11 +33,6 @@ class CommentRepository {
         return await TABLE.COMMENT.query().insert(data);
     }
 
-    // async createPostComment(data:postComment){
-    //     return await TABLE.COMMENT.query().insert(data)
-    // }
-
-    //Take care of types for these cases
     async editComment(id: string, data: any) {
         return await TABLE.COMMENT.query().patchAndFetchById(id, data);
     }
@@ -46,11 +41,6 @@ class CommentRepository {
         await TABLE.COMMENT.query().deleteById(id);
         return 'comment deleted successfully';
     }
-
-    // async patchPostComment(id:string,data:postCommentPatch){
-    //     const postComment =  await TABLE.COMMENT.query().findOne(data)
-    //     return await TABLE.COMMENT.query().patchAndFetchById(id,data)
-    // }
 }
 
 export default CommentRepository;

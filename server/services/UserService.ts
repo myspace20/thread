@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt';
 import { typeUser } from '../models/User';
 import redis from '../../config/redis';
 import { passwordResetContent, sendMail, signUpHtmlContent } from '../util';
+import { userId, userProfile } from '../interfaces';
 
 type password = { password: string };
 type authSignUp = Pick<typeUser, 'display_name' | 'email'> & password;
@@ -13,6 +14,10 @@ type authSignUp = Pick<typeUser, 'display_name' | 'email'> & password;
 //add complete profile stuff
 
 class UserService {
+    async getById(id: string) {
+        const userRepository = new UserRepository();
+        return await userRepository.getById(id);
+    }
     async signUp(signUpCredentials: authSignUp) {
         const registrationID = uuidv4();
         const userRepository = new UserRepository();
@@ -46,7 +51,7 @@ class UserService {
         if (result === null) throw new HttpError(400, 'verification link expired,please try again');
         const userData = JSON.stringify(result);
         const parse = JSON.parse(userData);
-        const user = await userRepository.insert(parse);
+        const user = await userRepository.createNewUser(parse);
         await redis.del(token);
         return user;
     }
@@ -56,7 +61,7 @@ class UserService {
         const user = await userRepository.getByEmail(email);
         if (!user) throw new HttpError(404, 'user not found');
         const resetID = uuidv4();
-        const userId = user.id as string;
+        const userId = user.id;
         await redis.set(resetID, userId);
         redis.expire(resetID, 2 * 24 * 60 * 60);
         const html = passwordResetContent(resetID);
@@ -78,10 +83,19 @@ class UserService {
         const result = await redis.get(token);
         console.log(token, password, result);
         if (result === null) throw new HttpError(404, 'invalid password reset link');
+        await userRepository.getById(result);
         const password_hash = await bcrypt.hash(password, 10);
         await userRepository.patch(result, { password_hash });
         await redis.del(token);
         return 'Password reset successfull';
+    }
+
+    async updateUserprofileAndActivateUser(id: userId, profileData: userProfile) {
+        const userRepository = new UserRepository();
+        await userRepository.getById(id);
+        await userRepository.patch(id, profileData);
+        await userRepository.patch(id, { active: true, profile_complete: true });
+        return 'profile updated successfully';
     }
 }
 

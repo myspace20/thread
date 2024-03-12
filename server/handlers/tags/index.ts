@@ -1,6 +1,12 @@
 import { Request, Response } from 'express';
 import TagService from '../../services/TagService';
 
+export const allTagsGet = async (req: Request, res: Response) => {
+    const tagService = new TagService();
+    const result = await tagService.getAllTags();
+    res.send(result);
+};
+
 export const createTagPost = async (req: Request, res: Response) => {
     const tagService = new TagService();
     const result = await tagService.createTag(req.body);

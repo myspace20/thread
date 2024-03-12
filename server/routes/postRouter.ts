@@ -4,9 +4,9 @@ import { createPost, deletePost, editPost } from '../handlers/post';
 
 const router = express.Router();
 
-router.post('/posts', handlerWrapper(createPost));
+router.post('/posts/:thread_id', handlerWrapper(createPost));
 
-router.patch('/posts/:post_id/threads/:thread_id', handlerWrapper(editPost));
+router.patch('/posts/:id/threads/:thread_id', handlerWrapper(editPost));
 
 router.delete('/posts/:post_id/threads/:thread_id', handlerWrapper(deletePost));
 

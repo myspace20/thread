@@ -4,6 +4,6 @@ import { castThreadVote } from '../handlers/vote';
 
 const router = express.Router();
 
-router.post('/vote', handlerWrapper(castThreadVote));
+router.post('/vote/threads/:thread_id', handlerWrapper(castThreadVote));
 
 export default router;

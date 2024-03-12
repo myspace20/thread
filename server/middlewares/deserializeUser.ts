@@ -1,18 +1,19 @@
 import { NextFunction, Request, Response } from 'express';
 import configs from '../../config/default';
 import { JWTService } from '../services/JWTService';
-import { SessionService } from '../services/SessionService';
-import { UserService } from '../services/UserService';
-import { HttpError } from '../util/HttpError';
+import { JwtPayload } from 'jsonwebtoken';
+import AuthService from '../services/AuthService';
+import UserService from '../services/UserService';
 
 export async function deserializeUser(req: Request, res: Response, next: NextFunction) {
-    const { accessToken, refreshToken } = req.cookies;
-
+    const { refreshToken, accessToken } = req.cookies;
     const { decoded, expired } = JWTService.verify(
         accessToken,
         configs.keys.accessTokenPublicKey,
         configs.accessTokenVerifyOptions,
     );
+
+    console.log(accessToken, expired);
 
     if (decoded) {
         res.locals.user = decoded;
@@ -21,19 +22,11 @@ export async function deserializeUser(req: Request, res: Response, next: NextFun
     if (expired && refreshToken) {
         const { decoded } = JWTService.verify(
             refreshToken,
-            configs.keys.refreshTokenPublicKey,
+            configs.keys.refreshTokenPrivateKey,
             configs.refreshTokenVerifyOptions,
-        );
-        if (!decoded) {
-            throw new HttpError(422, 'invalid token');
-        }
-        //@ts-ignore
-        const sessionId = decoded.id;
-        const session = await SessionService.findSessionById(sessionId);
-        const user = await UserService.getUserById(session.user_id);
-        // if(!session && user){}--action for token reuse
+        ) as JwtPayload;
         const newAccessToken = JWTService.sign(
-            { sessionId: session.id, userId: user.id },
+            { sessionId: decoded.sessionId, userId: decoded.userId },
             configs.keys.accessTokenPrivateKey,
             configs.accessTokenSigningOptions,
         );

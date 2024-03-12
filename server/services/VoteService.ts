@@ -14,9 +14,11 @@ class VoteService {
     async castVote(data: Vote) {
         const vote = await this.voteRepository.getByFilter(data);
         if (vote) {
-            return await this.voteRepository.deleteVote(vote.id);
+            await this.voteRepository.deleteVote(vote.id);
+            return 'vote withdrawn';
         }
-        return await this.voteRepository.createVote(data);
+        await this.voteRepository.createVote(data);
+        return 'vote casted suceessfully';
     }
 }
 

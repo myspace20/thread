@@ -30,7 +30,7 @@ class VoteRepository {
 
     async getByFilter(filter: Filter) {
         const vote = await TABLE.VOTE.query().findOne(filter);
-        if (!vote) throw new HttpError(404, 'vote not found');
+        // if (!vote) throw new HttpError(404, 'vote not found');
         return vote;
     }
 

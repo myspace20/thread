@@ -1,5 +1,6 @@
 // import configs from "../../config/default"
 // import redis from "../../config/redis"
+import { userId, userPassword, userProfile } from '../interfaces';
 import TABLE from '../models';
 import { typeUser } from '../models/User';
 import { HttpError } from '../util/HttpError';
@@ -21,10 +22,11 @@ class UserRepository {
         return user;
     }
 
-    async insert(userData: insertUser) {
+    async createNewUser(userData: insertUser) {
         return await TABLE.USER.query().insert(userData);
     }
-    //split into diffrent functions
+
+    //require at least one value for data interface
     async patch(id: string, data: Partial<patchUser>) {
         return await TABLE.USER.query().patchAndFetchById(id, data);
     }
