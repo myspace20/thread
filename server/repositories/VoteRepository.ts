@@ -22,30 +22,30 @@ for example:
 */
 
 class VoteRepository {
-    async getById(id: string) {
-        const vote = await TABLE.VOTE.query().findById(id);
-        if (!vote) throw new HttpError(404, 'vote not found');
-        return vote;
-    }
+  async getById(id: string) {
+    const vote = await TABLE.VOTE.query().findById(id);
+    if (!vote) throw new HttpError(404, 'vote not found');
+    return vote;
+  }
 
-    async getByFilter(filter: Filter) {
-        const vote = await TABLE.VOTE.query().findOne(filter);
-        // if (!vote) throw new HttpError(404, 'vote not found');
-        return vote;
-    }
+  async getByFilter(filter: Filter) {
+    const vote = await TABLE.VOTE.query().findOne(filter);
+    // if (!vote) throw new HttpError(404, 'vote not found');
+    return vote;
+  }
 
-    async createVote(data: Vote) {
-        return await TABLE.VOTE.query().insert(data);
-    }
+  async createVote(data: Vote) {
+    return await TABLE.VOTE.query().insert(data);
+  }
 
-    // async editVote(id:string,data:Vote){
-    //     const vote = await TABLE.VOTE.query().patchAndFetchById(id,data)
-    //     return vote
-    // }
+  // async editVote(id:string,data:Vote){
+  //     const vote = await TABLE.VOTE.query().patchAndFetchById(id,data)
+  //     return vote
+  // }
 
-    async deleteVote(id: string) {
-        return await TABLE.VOTE.query().deleteById(id);
-    }
+  async deleteVote(id: string) {
+    return await TABLE.VOTE.query().deleteById(id);
+  }
 }
 
 export default VoteRepository;

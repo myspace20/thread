@@ -1,11 +1,11 @@
 import express from 'express';
 import { handlerWrapper } from '../util';
 import {
-    createPostComment,
-    createThreadComment,
-    deleteThreadComment,
-    editPostComment,
-    editThreadComment,
+  createPostComment,
+  createThreadComment,
+  deleteThreadComment,
+  editPostComment,
+  editThreadComment,
 } from '../handlers/comment';
 
 const router = express.Router();

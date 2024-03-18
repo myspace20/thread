@@ -13,44 +13,44 @@ thread to avoid issues
 */
 
 class ThreadRepository {
-    async getById(id: string) {
-        const thread = await TABLE.THREAD.query().findById(id);
-        if (!thread) throw new HttpError(404, 'thread not found');
-        return thread;
-    }
+  async getById(id: string) {
+    const thread = await TABLE.THREAD.query().findById(id);
+    if (!thread) throw new HttpError(404, 'thread not found');
+    return thread;
+  }
 
-    async getByFilter(filter: threadFilter) {
-        const thread = await TABLE.THREAD.query().findOne(filter);
-        if (!thread) throw new HttpError(404, 'thread not found');
-        return thread;
-    }
+  async getByFilter(filter: threadFilter) {
+    const thread = await TABLE.THREAD.query().findOne(filter);
+    if (!thread) throw new HttpError(404, 'thread not found');
+    return thread;
+  }
 
-    async get() {
-        return await TABLE.THREAD.query();
-    }
+  async get() {
+    return await TABLE.THREAD.query();
+  }
 
-    async create(tags: tagsArr, threadData: threadObj) {
-        const trx = await TABLE.THREAD.startTransaction();
-        try {
-            const thread = await TABLE.THREAD.query(trx).insert(threadData);
-            const threadTagsIds = tags.map((id) => ({ thread_id: thread.id, tag_id: id }));
-            await TABLE.THREADTAG.query(trx).insert(threadTagsIds).returning('*');
-            trx.commit();
-            return 'thread successfully created';
-        } catch (e) {
-            trx.rollback();
-            throw new HttpError(400, 'error creating thread');
-        }
+  async create(tags: tagsArr, threadData: threadObj) {
+    const trx = await TABLE.THREAD.startTransaction();
+    try {
+      const thread = await TABLE.THREAD.query(trx).insert(threadData);
+      const threadTagsIds = tags.map((id) => ({ thread_id: thread.id, tag_id: id }));
+      await TABLE.THREADTAG.query(trx).insert(threadTagsIds).returning('*');
+      trx.commit();
+      return 'thread successfully created';
+    } catch (e) {
+      trx.rollback();
+      throw new HttpError(400, 'error creating thread');
     }
+  }
 
-    async patch(id: string, threadData: threadPatch) {
-        return await TABLE.THREAD.query().patchAndFetchById(id, threadData);
-    }
+  async patch(id: string, threadData: threadPatch) {
+    return await TABLE.THREAD.query().patchAndFetchById(id, threadData);
+  }
 
-    async deleteById(id: string) {
-        await TABLE.THREAD.query().deleteById(id);
-        return 'thread deleted successfully';
-    }
+  async deleteById(id: string) {
+    await TABLE.THREAD.query().deleteById(id);
+    return 'thread deleted successfully';
+  }
 }
 
 export default ThreadRepository;

@@ -15,20 +15,20 @@ type password = { password: string };
 type authLogin = Pick<typeUser, 'email'> & password;
 
 export default class AuthService {
-    async getById(id: string) {
-        const authRepository = new AuthRepository();
-        return await authRepository.getById(id);
-    }
+  async getById(id: string) {
+    const authRepository = new AuthRepository();
+    return await authRepository.getById(id);
+  }
 
-    async login(loginCredentials: authLogin) {
-        const userRepository = new UserRepository();
-        const authRepository = new AuthRepository();
-        const user = await userRepository.getByEmail(loginCredentials.email);
-        if (!user) throw new HttpError(409, 'invalid email or password');
-        if (!user.active) throw new HttpError(401, 'account email not verified, please verify your account');
-        const passwordMatch = await bcrypt.compare(loginCredentials.password, user.password_hash);
-        if (!passwordMatch) throw new HttpError(409, 'invalid email or password');
-        const authSession = await authRepository.create(user.id);
-        return { sessionId: authSession.id, userId: user.id };
-    }
+  async login(loginCredentials: authLogin) {
+    const userRepository = new UserRepository();
+    const authRepository = new AuthRepository();
+    const user = await userRepository.getByEmail(loginCredentials.email);
+    if (!user) throw new HttpError(409, 'invalid email or password');
+    if (!user.active) throw new HttpError(401, 'account email not verified, please verify your account');
+    const passwordMatch = await bcrypt.compare(loginCredentials.password, user.password_hash);
+    if (!passwordMatch) throw new HttpError(409, 'invalid email or password');
+    const authSession = await authRepository.create(user.id);
+    return { sessionId: authSession.id, userId: user.id };
+  }
 }

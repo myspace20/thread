@@ -2,10 +2,10 @@ import { createClient } from 'redis';
 import configs from './default';
 
 const client = createClient({
-    socket: {
-        host: configs.redis.url,
-        port: Number(configs.redis.port),
-    },
+  socket: {
+    host: configs.redis.url,
+    port: Number(configs.redis.port),
+  },
 });
 
 client.connect();

@@ -11,9 +11,9 @@ Model.knex(knexConfig);
 dotenv.config();
 
 const startServer = async (app: Application) => {
-    app.listen(8080, () => {
-        console.log('8080 is live');
-    });
+  app.listen(8080, () => {
+    console.log('8080 is live');
+  });
 };
 
 startServer(app);

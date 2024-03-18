@@ -21,46 +21,46 @@ import configs from '../../config/default';
  *
  */
 export const handlerWrapper = (fn: any) =>
-    function wrap(...args: any[]): Promise<any> {
-        const fnReturn = fn(...args);
-        const next = args[args.length - 1];
-        return Promise.resolve(fnReturn).catch((e) => {
-            next(e);
-        });
-    };
+  function wrap(...args: any[]): Promise<any> {
+    const fnReturn = fn(...args);
+    const next = args[args.length - 1];
+    return Promise.resolve(fnReturn).catch((e) => {
+      next(e);
+    });
+  };
 
 export function errorHandler(err: any, req: Request, res: Response, _next: NextFunction) {
-    //   log.error('catch error:', err);
-    if (err instanceof HttpError) {
-        res.status(err.status).send(err.message);
-    } else if (err instanceof ValidationError) {
-        res.status(422).send({
-            code: 422,
-            message: err.message,
-        });
-    } else {
-        res.status(500).send({
-            code: 500,
-            message: `Unknown error (${err.message})`,
-        });
-    }
+  //   log.error('catch error:', err);
+  if (err instanceof HttpError) {
+    res.status(err.status).send(err.message);
+  } else if (err instanceof ValidationError) {
+    res.status(422).send({
+      code: 422,
+      message: err.message,
+    });
+  } else {
+    res.status(500).send({
+      code: 500,
+      message: `Unknown error (${err.message})`,
+    });
+  }
 }
 
 export function signUpHtmlContent(registrationId: string) {
-    const verificationUrl = `http://${configs.host}:${configs.port}/auth/verify/token=${registrationId}`;
-    return `<a href=${verificationUrl}>Click here to verify</a>`;
+  const verificationUrl = `http://${configs.host}:${configs.port}/auth/verify/token=${registrationId}`;
+  return `<a href=${verificationUrl}>Click here to verify</a>`;
 }
 export function passwordResetContent(resetId: string) {
-    const verificationUrl = `http://${configs.host}:${configs.port}/auth/verify/token=${resetId}`;
-    return `<a href=${verificationUrl}>Click here to reset</a>`;
+  const verificationUrl = `http://${configs.host}:${configs.port}/auth/verify/token=${resetId}`;
+  return `<a href=${verificationUrl}>Click here to reset</a>`;
 }
 
 type TSendMail = {
-    to: string;
-    from: string;
-    subject: string;
-    html: string;
+  to: string;
+  from: string;
+  subject: string;
+  html: string;
 };
 export function sendMail(name: string, mailData: TSendMail, options: object) {
-    return mailQueue.add(name, mailData, options);
+  return mailQueue.add(name, mailData, options);
 }

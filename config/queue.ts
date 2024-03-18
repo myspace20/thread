@@ -10,18 +10,18 @@ import { HttpError } from '../server/util/HttpError';
 // }
 
 export const redisOptions = {
-    redis: { port: Number(configs.redis.port), host: configs.redis.url },
+  redis: { port: Number(configs.redis.port), host: configs.redis.url },
 };
 
 export const mailQueue = new Queue('email', redisOptions);
 
 mailQueue.process('email', async (job, done) => {
-    if (job.data) {
-        transport.sendMail(job.data, (err) => {
-            throw new HttpError(500, 'error sending email');
-        });
-        done();
-    }
+  if (job.data) {
+    transport.sendMail(job.data, (err) => {
+      throw new HttpError(500, 'error sending email');
+    });
+    done();
+  }
 });
 
 // export default createQueue;

@@ -1,15 +1,15 @@
 {
-    "compilerOptions": {
-        "target": "ES6",
-        "module": "CommonJS",
-        "strict": true,
-        "esModuleInterop": true,
-        "outDir": "./dist",
-        "skipLibCheck": true,
-        "rootDirs": ["/server"],
-        "alwaysStrict": false,
-        "strictPropertyInitialization": false
-    },
-    "include": ["**/*.ts"],
-    "exclude": ["node_modules"]
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "CommonJS",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "skipLibCheck": true,
+    "rootDirs": ["/server"],
+    "alwaysStrict": false,
+    "strictPropertyInitialization": false
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
 }

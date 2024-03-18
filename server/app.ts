@@ -21,8 +21,8 @@ const serverAdapter = new ExpressAdapter();
 serverAdapter.setBasePath('/ui');
 
 createBullBoard({
-    queues: [new BullMQAdapter(mailQueue)],
-    serverAdapter,
+  queues: [new BullMQAdapter(mailQueue)],
+  serverAdapter,
 });
 
 app.use('/ui', serverAdapter.getRouter());
@@ -35,7 +35,7 @@ app.use(routes);
 app.use(errorHandler);
 
 app.get('*', (req: Request, res: Response) => {
-    res.send('version 1.0.0');
+  res.send('version 1.0.0');
 });
 
 export default app;

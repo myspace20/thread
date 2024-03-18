@@ -8,14 +8,14 @@ import User from './User';
 import Vote from './Vote';
 
 const TABLE = {
-    AUTH: Auth,
-    USER: User,
-    POST: Post,
-    TAG: Tag,
-    THREAD: Thread,
-    THREADTAG: ThreadTag,
-    VOTE: Vote,
-    COMMENT: Comment,
+  AUTH: Auth,
+  USER: User,
+  POST: Post,
+  TAG: Tag,
+  THREAD: Thread,
+  THREADTAG: ThreadTag,
+  VOTE: Vote,
+  COMMENT: Comment,
 };
 
 export default TABLE;
