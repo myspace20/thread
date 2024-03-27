@@ -1,12 +1,4 @@
-import { voteShape } from '../models/Vote';
 import VoteRepository, { Vote } from '../repositories/VoteRepository';
-import { HttpError } from '../util/HttpError';
-
-type voteFilter = {
-  post_id?: string;
-  user_id: string;
-  thread_id?: string;
-};
 
 class VoteService {
   private voteRepository = new VoteRepository();

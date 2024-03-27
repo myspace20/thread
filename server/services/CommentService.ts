@@ -1,60 +1,51 @@
-import CommentRepository, { Comment, Filter } from '../repositories/CommentRepository';
+import {
+  commentId,
+  commentQuery,
+  createComment,
+  createPostComment,
+  createThreadComment,
+  threadId,
+} from '../interfaces';
+import CommentRepository from '../repositories/CommentRepository';
 import PostRepository from '../repositories/PostRepository';
 import ThreadRepository from '../repositories/ThreadRepository';
-
-type PostCommentDto = {
-  post_id: string;
-  text: string;
-  user_id: string;
-};
-type threadCommentDto = {
-  thread_id: string;
-  text: string;
-  user_id: string;
-};
-type ThreadComment = Pick<Comment, 'thread_id' | 'text' | 'user_id'>;
-type commentEdit = {
-  text: string;
-};
-
-//remove comments for posts and threads
 
 class CommentService {
   private commentRepository = new CommentRepository();
   private threadRepository = new ThreadRepository();
   private postRepository = new PostRepository();
 
-  async getCommentById(id: string) {
+  async getCommentById(id: commentId) {
     return this.commentRepository.getById(id);
   }
 
-  async addThreadComment(commentData: threadCommentDto) {
-    await this.threadRepository.getById(commentData.thread_id);
-    return await this.commentRepository.createComment(commentData);
+  async addThreadComment(data: createThreadComment) {
+    await this.threadRepository.getById(data.thread_id);
+    return await this.commentRepository.createComment(data);
   }
 
-  async addPostComment(commentData: PostCommentDto) {
-    await this.postRepository.getById(commentData.post_id);
-    return await this.commentRepository.createComment(commentData);
+  async addPostComment(data: createPostComment) {
+    await this.postRepository.getById(data.post_id);
+    return await this.commentRepository.createComment(data);
   }
 
-  async editThreadComment(filter: Filter, commentData: commentEdit) {
-    const comment = await this.commentRepository.getByFilter(filter);
-    return await this.commentRepository.editComment(comment.id, commentData);
+  async editThreadComment(query: commentQuery, data: commentQuery) {
+    const comment = await this.commentRepository.getByFilter(query);
+    return await this.commentRepository.editComment(comment.id, data);
   }
 
-  async editPostComment(filter: Filter, commentData: commentEdit) {
-    const comment = await this.commentRepository.getByFilter(filter);
-    return await this.commentRepository.editComment(comment.id, commentData);
+  async editPostComment(query: commentQuery, data: commentQuery) {
+    const comment = await this.commentRepository.getByFilter(query);
+    return await this.commentRepository.editComment(comment.id, data);
   }
 
-  async deleteThreadComment(filter: Filter) {
-    const threadComment = await this.commentRepository.getByFilter(filter);
+  async deleteThreadComment(query: commentQuery) {
+    const threadComment = await this.commentRepository.getByFilter(query);
     return await this.commentRepository.deleteComment(threadComment.id);
   }
 
-  async deletePostComment(filter: Filter) {
-    const postComment = await this.commentRepository.getByFilter(filter);
+  async deletePostComment(query: commentQuery) {
+    const postComment = await this.commentRepository.getByFilter(query);
     return await this.commentRepository.deleteComment(postComment.id);
   }
 }

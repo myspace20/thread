@@ -5,7 +5,7 @@ import Vote from './Vote';
 
 export default class Post extends Model {
   id: string;
-  text: string;
+  text?: string;
   is_accepted?: boolean;
   thread_id: string;
   user_id: string;

@@ -1,18 +1,17 @@
 import app from './app';
 import { Application } from 'express';
 import * as dotenv from 'dotenv';
-import { Model } from 'objection';
-import config from './infra/database/knexfile';
-import knex from 'knex';
-
-const knexConfig = knex(config['development']);
-Model.knex(knexConfig);
+import { logger } from './util/logger';
+import dbInstance from './infra/database/connect';
+import { redisConnection, client } from '../config/redis';
 
 dotenv.config();
 
 const startServer = async (app: Application) => {
-  app.listen(8080, () => {
-    console.log('8080 is live');
+  app.listen(5000, () => {
+    dbInstance;
+    redisConnection();
+    logger.info('server is up on 8080');
   });
 };
 

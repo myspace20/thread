@@ -1,10 +1,15 @@
 import Joi from 'joi';
 
-const voteSchema = Joi.object({
-  post_id: Joi.string().required().uuid(),
-  type: Joi.string(),
+const threadvoteSchema = Joi.object({
+  type: Joi.string().valid('up', 'down').required(),
   thread_id: Joi.string().required().uuid(),
   user_id: Joi.string().required().uuid(),
-}).nand('post_id', 'thread_id');
+});
 
-export { voteSchema };
+const postvoteSchema = Joi.object({
+  post_id: Joi.string().required().uuid(),
+  type: Joi.string().valid('up', 'down').required(),
+  user_id: Joi.string().required().uuid(),
+});
+
+export { threadvoteSchema, postvoteSchema };

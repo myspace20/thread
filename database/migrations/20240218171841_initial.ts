@@ -3,7 +3,10 @@ import { Knex } from 'knex';
 export async function up(knex: Knex): Promise<void> {
   await knex.schema
     .createTable('users', (table) => {
-      table.uuid('id', { primaryKey: true }).notNullable().defaultTo(knex.raw('uuid_generate_v4()'));
+      table
+        .uuid('id', { primaryKey: true })
+        .notNullable()
+        .defaultTo(knex.raw('uuid_generate_v4()'));
       table.string('email', 50).notNullable().unique();
       table.string('display_name', 30).notNullable();
       table.string('password_hash', 30).notNullable();
@@ -16,14 +19,20 @@ export async function up(knex: Knex): Promise<void> {
       table.timestamp('updated_at').defaultTo(null);
     })
     .createTable('auth', (table) => {
-      table.uuid('id', { primaryKey: true }).notNullable().defaultTo(knex.raw('uuid_generate_v4()'));
+      table
+        .uuid('id', { primaryKey: true })
+        .notNullable()
+        .defaultTo(knex.raw('uuid_generate_v4()'));
       table.boolean('valid').defaultTo(false);
       table.uuid('user_id').references('users.id').notNullable().onDelete('CASCADE');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(null);
     })
     .createTable('threads', (table) => {
-      table.uuid('id', { primaryKey: true }).notNullable().defaultTo(knex.raw('uuid_generate_v4()'));
+      table
+        .uuid('id', { primaryKey: true })
+        .notNullable()
+        .defaultTo(knex.raw('uuid_generate_v4()'));
       table.string('title', 120).notNullable();
       table.string('text', 400).notNullable();
       table.uuid('user_id').references('users.id').notNullable().onDelete('CASCADE');
@@ -31,7 +40,10 @@ export async function up(knex: Knex): Promise<void> {
       table.timestamp('updated_at').defaultTo(null);
     })
     .createTable('posts', (table) => {
-      table.uuid('id', { primaryKey: true }).notNullable().defaultTo(knex.raw('uuid_generate_v4()'));
+      table
+        .uuid('id', { primaryKey: true })
+        .notNullable()
+        .defaultTo(knex.raw('uuid_generate_v4()'));
       table.string('text', 400).notNullable();
       table.boolean('is_accepted').defaultTo(false);
       table.uuid('thread_id').references('threads.id').notNullable().onDelete('CASCADE');
@@ -40,7 +52,10 @@ export async function up(knex: Knex): Promise<void> {
       table.timestamp('updated_at').defaultTo(null);
     })
     .createTable('comments', (table) => {
-      table.uuid('id', { primaryKey: true }).notNullable().defaultTo(knex.raw('uuid_generate_v4()'));
+      table
+        .uuid('id', { primaryKey: true })
+        .notNullable()
+        .defaultTo(knex.raw('uuid_generate_v4()'));
       table.string('text', 150).notNullable();
       table.uuid('user_id').references('users.id').notNullable().onDelete('CASCADE');
       table.uuid('thread_id').references('threads.id').onDelete('CASCADE');
@@ -49,7 +64,10 @@ export async function up(knex: Knex): Promise<void> {
       table.timestamp('updated_at').defaultTo(null);
     })
     .createTable('votes', (table) => {
-      table.uuid('id', { primaryKey: true }).notNullable().defaultTo(knex.raw('uuid_generate_v4()'));
+      table
+        .uuid('id', { primaryKey: true })
+        .notNullable()
+        .defaultTo(knex.raw('uuid_generate_v4()'));
       table.enum('type', ['up', 'down']).notNullable();
       table.uuid('thread_id').references('threads.id').onDelete('CASCADE');
       table.uuid('post_id').references('posts.id').onDelete('CASCADE');
@@ -58,7 +76,10 @@ export async function up(knex: Knex): Promise<void> {
       table.timestamp('updated_at').defaultTo(null);
     })
     .createTable('tags', (table) => {
-      table.uuid('id', { primaryKey: true }).notNullable().defaultTo(knex.raw('uuid_generate_v4()'));
+      table
+        .uuid('id', { primaryKey: true })
+        .notNullable()
+        .defaultTo(knex.raw('uuid_generate_v4()'));
       table.string('name', 30).notNullable();
       table.string('description', 100).notNullable();
       table.timestamp('created_at').defaultTo(knex.fn.now());

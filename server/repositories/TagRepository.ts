@@ -1,11 +1,9 @@
+import { createTag, tagId, tagQuery } from '../interfaces';
 import TABLE from '../models';
-import { TagShape } from '../models/Tag';
 import { HttpError } from '../util/HttpError';
 
-type tagObject = Pick<TagShape, 'name' | 'description'>;
-
 class TagRepository {
-  async getById(id: string) {
+  async getById(id: tagId) {
     const tag = await TABLE.TAG.query().findById(id);
     if (!tag) throw new HttpError(404, 'tag not found');
     return tag;
@@ -15,15 +13,15 @@ class TagRepository {
     return await TABLE.TAG.query();
   }
 
-  async create(tagObject: tagObject) {
-    return await TABLE.TAG.query().insert(tagObject);
+  async create(data: createTag) {
+    return await TABLE.TAG.query().insert(data);
   }
 
-  async patch(id: string, tagObject: Partial<tagObject>) {
-    return await TABLE.TAG.query().patchAndFetchById(id, tagObject);
+  async patch(id: tagId, query: tagQuery) {
+    return await TABLE.TAG.query().patchAndFetchById(id, query);
   }
 
-  async delete(id: string) {
+  async delete(id: tagId) {
     await TABLE.TAG.query().deleteById(id);
     return 'tag deleted successfully';
   }

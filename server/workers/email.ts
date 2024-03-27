@@ -1,18 +1,17 @@
-import { mailQueue } from '../../config/queue';
+import Queue from 'bull';
 import transport from '../../config/mail';
+import { HttpError } from '../util/HttpError';
+import { redisOptions } from '../../config/redis';
 
-// mailQueue.process('email',async(job,done)=>{
-//     if(job.data){
-//         transport.sendMail(job.data,(err)=>{
-//             console.log(err)
-//         });
-//         done()
-//     }
-// })
+export const mailQueue = new Queue('email', redisOptions);
 
-// process.once('SIGTERM', () => {
-//     mailQueue
-//         .close()
-//         .then(process.exit(0))
-//         .catch((e) => e);
-// });
+mailQueue.process('email', async (job, done) => {
+  if (job.data) {
+    transport.sendMail(job.data, (err: any) => {
+      if (err) {
+        throw new HttpError(500, 'error sending email');
+      }
+    });
+    done();
+  }
+});

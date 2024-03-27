@@ -1,5 +1,6 @@
-import { createClient } from 'redis';
+import { RedisClientType, createClient } from 'redis';
 import configs from './default';
+import { logger } from '../server/util/logger';
 
 const client = createClient({
   socket: {
@@ -8,6 +9,19 @@ const client = createClient({
   },
 });
 
-client.connect();
+const redisOptions = {
+  redis: {
+    port: Number(configs.redis.port),
+    host: configs.redis.url,
+  },
+};
 
-export default client;
+async function redisConnection() {
+  try {
+    await client.connect();
+  } catch (err) {
+    logger.error(err);
+  }
+}
+
+export { redisConnection, client, redisOptions };

@@ -2,7 +2,8 @@ import Joi from 'joi';
 
 const postParamsSchema = Joi.object({
   id: Joi.string().uuid().required(),
-});
+  thread_id: Joi.string().uuid().required(),
+}).or('id', 'thread_id');
 
 const createPostSchema = Joi.object({
   text: Joi.string().required().min(5).max(400),

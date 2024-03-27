@@ -11,10 +11,8 @@ export async function deserializeUser(req: Request, res: Response, next: NextFun
     configs.accessTokenVerifyOptions,
   );
 
-  console.log(accessToken, expired);
-
   if (decoded) {
-    res.locals.user = decoded;
+    req.user = decoded;
   }
 
   if (expired && refreshToken) {
@@ -25,7 +23,10 @@ export async function deserializeUser(req: Request, res: Response, next: NextFun
     ) as JwtPayload;
 
     const newAccessToken = JWTService.sign(
-      { sessionId: decoded.sessionId, userId: decoded.userId },
+      {
+        sessionId: decoded.sessionId,
+        userId: decoded.userId,
+      },
       configs.keys.accessTokenPrivateKey,
       configs.accessTokenSigningOptions,
     );
@@ -41,7 +42,7 @@ export async function deserializeUser(req: Request, res: Response, next: NextFun
       configs.accessTokenVerifyOptions,
     );
     if (decodedAcessToken) {
-      res.locals.user = decodedAcessToken;
+      req.user = decodedAcessToken;
     }
   }
 

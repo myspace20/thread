@@ -3,7 +3,7 @@ import UserService from '../services/UserService';
 
 async function authorization(req: Request, res: Response, next: NextFunction) {
   const userService = new UserService();
-  const user = res.locals.user;
+  const user = req.user.userId;
   // console.log(user)
   if (!user) {
     return res.status(401).send('unauthorized');

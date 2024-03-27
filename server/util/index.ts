@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { HttpError } from './HttpError';
 import { ValidationError } from 'joi';
-import { mailQueue } from '../../config/queue';
+import { mailQueue } from '../workers/email';
 import configs from '../../config/default';
+import { userQuery } from '../interfaces';
 // import configs from "../../config/default";
 
 /*
@@ -47,11 +48,11 @@ export function errorHandler(err: any, req: Request, res: Response, _next: NextF
 }
 
 export function signUpHtmlContent(registrationId: string) {
-  const verificationUrl = `http://${configs.host}:${configs.port}/auth/verify/token=${registrationId}`;
+  const verificationUrl = `http://${configs.host}:${configs.port}/auth/verify/${registrationId}`;
   return `<a href=${verificationUrl}>Click here to verify</a>`;
 }
 export function passwordResetContent(resetId: string) {
-  const verificationUrl = `http://${configs.host}:${configs.port}/auth/verify/token=${resetId}`;
+  const verificationUrl = `http://${configs.host}:${configs.port}/auth/verify/${resetId}`;
   return `<a href=${verificationUrl}>Click here to reset</a>`;
 }
 

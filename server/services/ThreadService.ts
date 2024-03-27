@@ -1,9 +1,11 @@
-import ThreadRepository, { tagsArr, threadFilter, threadObj, threadPatch } from '../repositories/ThreadRepository';
+import { createThread, tagArray, threadId, threadQuery } from '../interfaces';
+import ThreadRepository from '../repositories/ThreadRepository';
+import { HttpError } from '../util/HttpError';
 
 class ThreadService {
   private threadRepository = new ThreadRepository();
 
-  async getById(id: string) {
+  async getById(id: threadId) {
     return this.threadRepository.getById(id);
   }
 
@@ -11,17 +13,18 @@ class ThreadService {
     return this.threadRepository.get();
   }
 
-  async createThread(tags: tagsArr, threadData: threadObj) {
+  async createThread(tags: tagArray, threadData: createThread) {
     return this.threadRepository.create(tags, threadData);
   }
 
-  async editThread(filter: threadFilter, threadData: threadPatch) {
-    const thread = await this.threadRepository.getByFilter(filter);
+  async editThread(query: threadQuery, threadData: threadQuery) {
+    const thread = await this.threadRepository.getByFilter(query);
     return this.threadRepository.patch(thread.id, threadData);
   }
 
-  async deleteThread(filter: threadFilter) {
-    const thread = await this.threadRepository.getByFilter(filter);
+  async deleteThread(query: threadQuery) {
+    const thread = await this.threadRepository.getByFilter(query);
+    if (thread.user_id === query.user_id) throw new HttpError(403, 'permission denied');
     return this.threadRepository.deleteById(thread.id);
   }
 }

@@ -1,39 +1,33 @@
+import { createThread, tagArray, threadId, threadQuery } from '../interfaces';
 import TABLE from '../models';
 import { ThreadShape } from '../models/Thread';
 import { HttpError } from '../util/HttpError';
 
-export type tagsArr = [string];
-export type threadObj = Pick<ThreadShape, 'title' | 'text' | 'user_id'>;
-export type threadPatch = Partial<Omit<threadObj, 'user_id'>>;
-export type threadFilter = Pick<ThreadShape, 'id' | 'user_id'>;
-
-/* 
-Ensure to use filter to obtain user 
-thread to avoid issues
-*/
-
 class ThreadRepository {
-  async getById(id: string) {
+  async getById(id: threadId) {
     const thread = await TABLE.THREAD.query().findById(id);
     if (!thread) throw new HttpError(404, 'thread not found');
     return thread;
   }
 
-  async getByFilter(filter: threadFilter) {
-    const thread = await TABLE.THREAD.query().findOne(filter);
+  async getByFilter(query: threadQuery) {
+    const thread = await TABLE.THREAD.query().findOne(query);
     if (!thread) throw new HttpError(404, 'thread not found');
     return thread;
   }
 
   async get() {
-    return await TABLE.THREAD.query();
+    return await TABLE.THREAD.query().withGraphFetched('posts');
   }
 
-  async create(tags: tagsArr, threadData: threadObj) {
+  async create(tags: tagArray, threadData: createThread) {
     const trx = await TABLE.THREAD.startTransaction();
     try {
       const thread = await TABLE.THREAD.query(trx).insert(threadData);
-      const threadTagsIds = tags.map((id) => ({ thread_id: thread.id, tag_id: id }));
+      const threadTagsIds = tags.map((id) => ({
+        thread_id: thread.id,
+        tag_id: id,
+      }));
       await TABLE.THREADTAG.query(trx).insert(threadTagsIds).returning('*');
       trx.commit();
       return 'thread successfully created';
@@ -43,11 +37,11 @@ class ThreadRepository {
     }
   }
 
-  async patch(id: string, threadData: threadPatch) {
+  async patch(id: threadId, threadData: threadQuery) {
     return await TABLE.THREAD.query().patchAndFetchById(id, threadData);
   }
 
-  async deleteById(id: string) {
+  async deleteById(id: threadId) {
     await TABLE.THREAD.query().deleteById(id);
     return 'thread deleted successfully';
   }
