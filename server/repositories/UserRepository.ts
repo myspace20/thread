@@ -1,13 +1,10 @@
-// import configs from "../../config/default"
-// import redis from "../../config/redis"
 import { createUser, userId, userQuery } from '../interfaces';
 import TABLE from '../models';
-import { typeUser } from '../models/User';
 import { HttpError } from '../util/HttpError';
 
 class UserRepository {
   async getByEmail(email: userQuery) {
-    return await TABLE.USER.query().findOne({ email });
+    return await TABLE.USER.query().findOne(email);
   }
 
   async getById(id: userId) {

@@ -1,11 +1,4 @@
-import {
-  commentId,
-  commentQuery,
-  createComment,
-  createPostComment,
-  createThreadComment,
-  threadId,
-} from '../interfaces';
+import { commentId, commentQuery, createPostComment, createThreadComment } from '../interfaces';
 import CommentRepository from '../repositories/CommentRepository';
 import PostRepository from '../repositories/PostRepository';
 import ThreadRepository from '../repositories/ThreadRepository';

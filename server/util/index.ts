@@ -30,7 +30,7 @@ export const handlerWrapper = (fn: any) =>
     });
   };
 
-export function errorHandler(err: any, req: Request, res: Response, _next: NextFunction) {
+export function errorHandler(err: Error, req: Request, res: Response, _next: NextFunction) {
   //   log.error('catch error:', err);
   if (err instanceof HttpError) {
     res.status(err.status).send(err.message);

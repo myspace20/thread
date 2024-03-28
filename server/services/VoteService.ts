@@ -5,6 +5,7 @@ class VoteService {
 
   async castVote(data: Vote) {
     const vote = await this.voteRepository.getByFilter(data);
+    console.log(data, vote);
     if (vote) {
       await this.voteRepository.deleteVote(vote.id);
       return 'vote withdrawn';

@@ -1,4 +1,4 @@
-import { Request, Response, response } from 'express';
+import { Request, Response } from 'express';
 import CommentService from '../../services/CommentService';
 import {
   commentTextSchema,

@@ -1,7 +1,8 @@
 import appRootPath from 'app-root-path';
 import configs from '../../../config/default';
+import { Knex } from 'knex';
 
-const config: any = {
+const config: Knex.Config = {
   client: 'pg',
   connection: configs.database.test_url,
   migrations: {

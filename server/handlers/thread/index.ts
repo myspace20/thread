@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import ThreadService from '../../services/ThreadService';
-import { createThreadSchema, editThreadSchema, threadQuerySchema } from './schema';
+import { createThreadSchema, editThreadSchema, threadQuerySchema, threadTagList } from './schema';
 
 export const threadsGet = async (req: Request, res: Response) => {
   const threadService = new ThreadService();
@@ -17,6 +17,7 @@ export const threadPost = async (req: Request, res: Response) => {
     abortEarly: false,
   });
   //Tags array validation
+  await threadTagList.validateAsync(req.body.tags, { abortEarly: false });
   const threadService = new ThreadService();
   const result = await threadService.createThread(req.body.tags, threadObject);
   res.status(201).send(result);

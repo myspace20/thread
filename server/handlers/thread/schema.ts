@@ -20,6 +20,12 @@ const threadQuerySchema = Joi.object({
   id: Joi.string().uuid().required(),
 });
 
-const threadTagList = Joi.array();
+const threadTagList = Joi.array().items(Joi.string().required());
 
-export { threadParamSchema, createThreadSchema, editThreadSchema, threadQuerySchema };
+export {
+  threadParamSchema,
+  createThreadSchema,
+  editThreadSchema,
+  threadQuerySchema,
+  threadTagList,
+};

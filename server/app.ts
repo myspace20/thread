@@ -1,7 +1,7 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import routes from './routes/index';
-import { errorHandler } from './util';
+import { errorHandler, handlerWrapper } from './util';
 import helmet from 'helmet';
 import { mailQueue } from './workers/email';
 import { deserializeUser } from './middlewares/deserializeUser';
@@ -10,37 +10,38 @@ const { BullMQAdapter } = require('@bull-board/api/bullMQAdapter');
 const { ExpressAdapter } = require('@bull-board/express');
 import cookieParser from 'cookie-parser';
 import { http_request_counter, http_request_duration_milliseconds } from './util/metrics';
-import { logger } from './util/logger';
 import responseTime from 'response-time';
-// import swaggerjsdoc from "swagger-jsdoc"
-// import swaggerUi from "swagger-ui-express"
-
-// const options = {
-//   definition:{
-//     openapi:"3.1.0",
-//     severs:[
-//       {
-//         url:"http://localhost:8080"
-//       }
-//     ],
-//     info:{
-//       title:"thread-api",
-//       version:"1.0.1"
-//     }
-//   },
-//   apis:["/home/roger/Downloads/thread-api-final/thread-api-final/server/routes/authRouter.ts"],
-
-// }
+import { HttpError } from './util/HttpError';
+import { logger } from './util/logger';
 
 const app: Application = express();
 
-// app.use(helmet());
+app.use(cors());
+
+// app.use(
+//   handlerWrapper((req:Request, _res:Response, next:NextFunction) => {
+//     if (
+//       req.method === 'POST' ||
+//       req.method === 'PATCH' ||
+//       req.method === 'PUT'
+//     ) {
+//       if (req.headers['content-type'] !== 'application/json') {
+//         logger.fatal(`Invalid request from ${req.ip}`)
+//         throw new HttpError(
+//           415,
+//           'Invalid content type. API only supports application/json',
+//         );
+//       }
+//     }
+//     next();
+//   }),
+// );
+
 app.use(
   helmet({
     contentSecurityPolicy: false,
   }),
 );
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -54,9 +55,7 @@ createBullBoard({
   serverAdapter,
 });
 
-app.use('/ui', serverAdapter.getRouter());
-
-// app.use("/docs",swaggerUi.serve,swaggerUi.setup(swaggerjsdoc(options)))
+app.use('/bull_dashboard/ui', serverAdapter.getRouter());
 
 app.use(deserializeUser);
 
@@ -75,7 +74,6 @@ app.use(
 );
 
 app.use(function (req, res, next) {
-  // Increment the HTTP request counter
   http_request_counter
     .labels({
       method: req.method,

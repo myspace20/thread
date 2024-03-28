@@ -1,11 +1,10 @@
 import { createThread, tagArray, threadId, threadQuery } from '../interfaces';
 import TABLE from '../models';
-import { ThreadShape } from '../models/Thread';
 import { HttpError } from '../util/HttpError';
 
 class ThreadRepository {
   async getById(id: threadId) {
-    const thread = await TABLE.THREAD.query().findById(id);
+    const thread = await TABLE.THREAD.query().findById(id).withGraphFetched('posts');
     if (!thread) throw new HttpError(404, 'thread not found');
     return thread;
   }
@@ -17,7 +16,7 @@ class ThreadRepository {
   }
 
   async get() {
-    return await TABLE.THREAD.query().withGraphFetched('posts');
+    return await TABLE.THREAD.query();
   }
 
   async create(tags: tagArray, threadData: createThread) {

@@ -5,6 +5,7 @@ import { JwtPayload } from 'jsonwebtoken';
 
 export async function deserializeUser(req: Request, res: Response, next: NextFunction) {
   const { refreshToken, accessToken } = req.cookies;
+
   const { decoded, expired } = JWTService.verify(
     accessToken,
     configs.keys.accessTokenPublicKey,

@@ -1,7 +1,6 @@
 import { createPost, postId, postQuery } from '../interfaces';
 import PostRepository from '../repositories/PostRepository';
 import ThreadRepository from '../repositories/ThreadRepository';
-import { Filter } from '../repositories/VoteRepository';
 import { HttpError } from '../util/HttpError';
 
 class PostService {
