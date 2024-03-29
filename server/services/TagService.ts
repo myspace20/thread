@@ -1,4 +1,4 @@
-import { createTag, tagId, tagQuery } from '../interfaces';
+import { createTag, tagId, tagQuery, tagUpdate } from '../interfaces';
 import TagRepository from '../repositories/TagRepository';
 
 class TagService {
@@ -12,7 +12,7 @@ class TagService {
     return await this.tagRepository.create(data);
   }
 
-  async editTag(id: tagId, data: tagQuery) {
+  async editTag(id: tagId, data: tagUpdate) {
     await this.tagRepository.getById(id);
     return await this.tagRepository.patch(id, data);
   }

@@ -1,3 +1,4 @@
+import { QueryBuilder } from 'knex';
 import { Model, ModelObject } from 'objection';
 
 enum Role {
@@ -22,5 +23,17 @@ export default class User extends Model {
   static get tableName() {
     return 'users';
   }
+
+  static modifiers = {
+    profileSelects(builder: any) {
+      builder.select('email', 'description', 'description', 'image_url');
+    },
+    commentAuthor(builder: any) {
+      builder.select('display_name');
+    },
+    authorDetails(builder: any) {
+      builder.select('display_name', 'image_url');
+    },
+  };
 }
 export type typeUser = ModelObject<User>;

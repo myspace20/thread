@@ -39,6 +39,16 @@ export interface createUser {
 export interface userQuery {
   id?: string;
   email?: string;
+  display_name?: string;
+  active?: boolean;
+  role?: Role;
+  profile_complete?: boolean;
+  created_at?: Date;
+  updated_at?: Date;
+}
+
+export interface userUpdate {
+  email?: string;
   password?: string;
   display_name?: string;
   description?: string;
@@ -46,8 +56,6 @@ export interface userQuery {
   active?: boolean;
   role?: Role;
   profile_complete?: boolean;
-  created_at?: Date;
-  updated_at?: Date;
 }
 
 //Thread
@@ -69,6 +77,11 @@ export interface threadQuery {
   updated_at?: Date;
 }
 
+export interface threadUpdate {
+  title?: string;
+  text?: string;
+}
+
 export type tagArray = string[];
 
 //Tags
@@ -86,6 +99,11 @@ export interface tagQuery {
   description?: string;
   created_at?: Date;
   updated_at?: Date;
+}
+
+export interface tagUpdate {
+  name?: string;
+  description?: string;
 }
 
 //Posts
@@ -106,6 +124,11 @@ export interface postQuery {
   is_accepted?: boolean;
   created_at?: Date;
   updated_at?: Date;
+}
+
+export interface postUpdate {
+  text?: string;
+  is_accepted?: boolean;
 }
 
 //comments
@@ -139,6 +162,10 @@ export interface commentQuery {
   thread_id?: string;
   created_at?: Date;
   updated_at?: Date;
+}
+
+export interface commentUpdate {
+  text?: string;
 }
 
 //Votes

@@ -1,4 +1,4 @@
-import { createPost, postId, postQuery } from '../interfaces';
+import { createPost, postId, postQuery, postUpdate } from '../interfaces';
 import TABLE from '../models';
 import { HttpError } from '../util/HttpError';
 
@@ -19,7 +19,7 @@ class PostRepository {
     return await TABLE.POST.query().insert(data);
   }
 
-  async patch(id: postId, data: postQuery) {
+  async patch(id: postId, data: postUpdate) {
     return await TABLE.POST.query().patchAndFetchById(id, data);
   }
 

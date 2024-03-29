@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 import { typeUser } from '../models/User';
 import { client as redis } from '../../config/redis';
 import { passwordResetContent, sendMail, signUpHtmlContent } from '../util';
-import { createUser, userId, userQuery, userToken } from '../interfaces';
+import { createUser, userId, userQuery, userToken, userUpdate } from '../interfaces';
 
 class UserService {
   private userRepository = new UserRepository();
@@ -85,7 +85,7 @@ class UserService {
     return 'Password reset successfull';
   }
 
-  async updateUserprofileAndActivateUser(id: userId, profileData: userQuery) {
+  async updateUserprofileAndActivateUser(id: userId, profileData: userUpdate) {
     const user = await this.userRepository.getById(id);
     const updateData = {
       ...profileData,

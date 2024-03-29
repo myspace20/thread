@@ -1,11 +1,24 @@
 import { Request, Response } from 'express';
 import ThreadService from '../../services/ThreadService';
-import { createThreadSchema, editThreadSchema, threadQuerySchema, threadTagList } from './schema';
+import {
+  createThreadSchema,
+  editThreadSchema,
+  threadParamSchema,
+  threadQuerySchema,
+  threadTagList,
+} from './schema';
 
 export const threadsGet = async (req: Request, res: Response) => {
   const threadService = new ThreadService();
   const threads = await threadService.getThreads();
   res.send(threads);
+};
+
+export const threadGet = async (req: Request, res: Response) => {
+  await threadParamSchema.validateAsync(req.params, { abortEarly: false });
+  const threadService = new ThreadService();
+  const thread = await threadService.getById(req.params.id);
+  res.send(thread);
 };
 
 export const threadPost = async (req: Request, res: Response) => {

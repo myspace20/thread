@@ -1,4 +1,4 @@
-import { createTag, tagId, tagQuery } from '../interfaces';
+import { createTag, tagId, tagQuery, tagUpdate } from '../interfaces';
 import TABLE from '../models';
 import { HttpError } from '../util/HttpError';
 
@@ -17,7 +17,7 @@ class TagRepository {
     return await TABLE.TAG.query().insert(data);
   }
 
-  async patch(id: tagId, query: tagQuery) {
+  async patch(id: tagId, query: tagUpdate) {
     return await TABLE.TAG.query().patchAndFetchById(id, query);
   }
 

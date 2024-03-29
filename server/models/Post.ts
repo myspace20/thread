@@ -1,16 +1,22 @@
-import { Model, ModelObject } from 'objection';
+import { Model, ModelObject, QueryBuilder } from 'objection';
 import User from './User';
 import Comment from './Comment';
 import Vote from './Vote';
 
 export default class Post extends Model {
   id: string;
-  text?: string;
-  is_accepted?: boolean;
+  text: string;
+  is_accepted: boolean;
   thread_id: string;
   user_id: string;
   created_at: Date;
   updated_at: Date;
+
+  static modifiers = {
+    defaultSelects(builder: QueryBuilder<Model>) {
+      builder.select('id', 'is_accepted', 'thread_id', 'created_at');
+    },
+  };
 
   static get tableName() {
     return 'posts';

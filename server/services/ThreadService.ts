@@ -1,4 +1,4 @@
-import { createThread, tagArray, threadId, threadQuery } from '../interfaces';
+import { createThread, tagArray, threadId, threadQuery, threadUpdate } from '../interfaces';
 import ThreadRepository from '../repositories/ThreadRepository';
 import { HttpError } from '../util/HttpError';
 
@@ -17,7 +17,7 @@ class ThreadService {
     return this.threadRepository.create(tags, threadData);
   }
 
-  async editThread(query: threadQuery, threadData: threadQuery) {
+  async editThread(query: threadQuery, threadData: threadUpdate) {
     const thread = await this.threadRepository.getByFilter(query);
     return this.threadRepository.patch(thread.id, threadData);
   }

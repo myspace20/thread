@@ -1,4 +1,4 @@
-import { Model, ModelObject } from 'objection';
+import { Model, ModelObject, QueryBuilder } from 'objection';
 
 export default class Tag extends Model {
   id: string;
@@ -6,6 +6,12 @@ export default class Tag extends Model {
   description: string;
   created_at: Date;
   updated_at: Date;
+
+  static modifiers = {
+    defaultSelects(builder: QueryBuilder<Model>) {
+      builder.select('id', 'name', 'description', 'created_at');
+    },
+  };
 
   static get tableName() {
     return 'tags';

@@ -1,4 +1,4 @@
-import { commentId, commentQuery, createComment } from '../interfaces';
+import { commentId, commentQuery, commentUpdate, createComment } from '../interfaces';
 import TABLE from '../models';
 import { HttpError } from '../util/HttpError';
 
@@ -19,7 +19,7 @@ class CommentRepository {
     return await TABLE.COMMENT.query().insert(data);
   }
 
-  async editComment(id: commentId, data: commentQuery) {
+  async editComment(id: commentId, data: commentUpdate) {
     return await TABLE.COMMENT.query().patchAndFetchById(id, data);
   }
 

@@ -1,4 +1,4 @@
-import { createPost, postId, postQuery } from '../interfaces';
+import { createPost, postId, postQuery, postUpdate } from '../interfaces';
 import PostRepository from '../repositories/PostRepository';
 import ThreadRepository from '../repositories/ThreadRepository';
 import { HttpError } from '../util/HttpError';
@@ -32,7 +32,7 @@ class PostService {
     return 'post marked as accepted';
   }
 
-  async editPost(query: postQuery, data: postQuery) {
+  async editPost(query: postQuery, data: postUpdate) {
     const post = await this.postRepository.getByFilter(query);
     if (post.user_id != query.user_id) throw new HttpError(403, 'permission denied');
     return await this.postRepository.patch(post.id, data);

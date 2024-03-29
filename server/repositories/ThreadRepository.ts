@@ -1,10 +1,22 @@
-import { createThread, tagArray, threadId, threadQuery } from '../interfaces';
+import { createThread, tagArray, threadId, threadQuery, threadUpdate } from '../interfaces';
 import TABLE from '../models';
 import { HttpError } from '../util/HttpError';
 
 class ThreadRepository {
   async getById(id: threadId) {
-    const thread = await TABLE.THREAD.query().findById(id).withGraphFetched('posts');
+    const thread = await TABLE.THREAD.query()
+      .findById(id)
+      .withGraphFetched(
+        '[posts(defaultSelects).[author(authorDetails),comments(defaultSelects),votes],comments(defaultSelects),votes]',
+      )
+      .modify('defaultSelects')
+      .modifyGraph('votes', (builder) => {
+        builder.select('type').count('type').groupBy('votes.id');
+      })
+      .modifyGraph('posts.votes', (builder) => {
+        builder.select('type').count('type').groupBy('votes.id');
+      })
+      .debug();
     if (!thread) throw new HttpError(404, 'thread not found');
     return thread;
   }
@@ -16,7 +28,9 @@ class ThreadRepository {
   }
 
   async get() {
-    return await TABLE.THREAD.query();
+    return await TABLE.THREAD.query()
+      .modify('defaultSelects')
+      .withGraphFetched('author(authorDetails)');
   }
 
   async create(tags: tagArray, threadData: createThread) {
@@ -36,7 +50,7 @@ class ThreadRepository {
     }
   }
 
-  async patch(id: threadId, threadData: threadQuery) {
+  async patch(id: threadId, threadData: threadUpdate) {
     return await TABLE.THREAD.query().patchAndFetchById(id, threadData);
   }
 

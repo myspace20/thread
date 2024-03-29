@@ -16,9 +16,9 @@ async function authorization(req: Request, res: Response, next: NextFunction) {
   if (!result) {
     return res.status(401).send('unauthorized');
   }
-  if (result.active != true && result.profile_complete != true) {
-    return res.status(401).send('please complete your profile');
-  }
+  // if (result.active != true && result.profile_complete != true) {
+  //   return res.status(401).send('please complete your profile');
+  // }
   next();
 }
 

@@ -1,4 +1,4 @@
-import { Model, ModelObject } from 'objection';
+import { Model, ModelObject, QueryBuilder } from 'objection';
 import User from './User';
 
 export default class Comment extends Model {
@@ -13,6 +13,12 @@ export default class Comment extends Model {
   static get tableName() {
     return 'comments';
   }
+
+  static modifiers = {
+    defaultSelects(builder: QueryBuilder<Model>) {
+      builder.select('id', 'text', 'thread_id', 'post_id', 'created_at');
+    },
+  };
 
   static relationMapping = {
     author: {

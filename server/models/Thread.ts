@@ -1,4 +1,4 @@
-import { Model, ModelObject } from 'objection';
+import { Model, ModelObject, QueryBuilder } from 'objection';
 import User from './User';
 import Tag from './Tag';
 import Post from './Post';
@@ -16,6 +16,12 @@ export default class Thread extends Model {
   static get tableName() {
     return 'threads';
   }
+
+  static modifiers = {
+    defaultSelects(builder: QueryBuilder<Model>) {
+      builder.select('id', 'title', 'text', 'created_at');
+    },
+  };
 
   static relationMappings = {
     author: {
@@ -50,7 +56,7 @@ export default class Thread extends Model {
       relation: Model.HasManyRelation,
       modelClass: Comment,
       join: {
-        from: 'posts.id',
+        from: 'threads.id',
         to: 'comments.thread_id',
       },
     },

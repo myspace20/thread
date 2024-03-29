@@ -1,4 +1,4 @@
-import { createUser, userId, userQuery } from '../interfaces';
+import { createUser, userId, userQuery, userUpdate } from '../interfaces';
 import TABLE from '../models';
 import { HttpError } from '../util/HttpError';
 
@@ -17,7 +17,7 @@ class UserRepository {
     return await TABLE.USER.query().insert(userData);
   }
 
-  async patch(id: userId, query: userQuery) {
+  async patch(id: userId, query: userUpdate) {
     return await TABLE.USER.query().patchAndFetchById(id, query);
   }
 }
