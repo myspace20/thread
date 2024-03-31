@@ -1,8 +1,8 @@
-import Redis from 'redis';
+import { createClient } from 'redis';
 import configs from './default';
 import { logger } from '../server/util/logger';
 
-const client = Redis.createClient({
+const client = createClient({
   socket: {
     host: configs.redis.url,
     port: Number(configs.redis.port),
