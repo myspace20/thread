@@ -3,6 +3,7 @@ import configs from './default';
 import { logger } from '../server/util/logger';
 
 const client = createClient({
+  password: configs.redis.password,
   socket: {
     host: configs.redis.url,
     port: Number(configs.redis.port),
