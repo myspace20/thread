@@ -48,11 +48,11 @@ export function errorHandler(err: Error, req: Request, res: Response, _next: Nex
 }
 
 export function signUpHtmlContent(registrationId: string) {
-  const verificationUrl = `http://${configs.host}:${configs.port}/auth/verify/${registrationId}`;
+  const verificationUrl = `${configs.host}/auth/verify/${registrationId}`;
   return `<a href=${verificationUrl}>Click here to verify</a>`;
 }
 export function passwordResetContent(resetId: string) {
-  const verificationUrl = `http://${configs.host}:${configs.port}/auth/verify/${resetId}`;
+  const verificationUrl = `${configs.host}/auth/verify/${resetId}`;
   return `<a href=${verificationUrl}>Click here to reset</a>`;
 }
 
