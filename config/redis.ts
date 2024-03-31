@@ -17,6 +17,8 @@ const redisOptions = {
   },
 };
 
+client.connect();
+
 client.on('error', (error) => {
   logger.error(`Redis client error:`, error);
 });
