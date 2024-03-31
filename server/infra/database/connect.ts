@@ -3,7 +3,7 @@ import { Model } from 'objection';
 import config from './knexfile';
 
 function knexObjectionInstance(config: Knex) {
-  const connection = Model.knex(config);
+  return Model.knex(config);
 }
 
 const knexConfig = knex(config);

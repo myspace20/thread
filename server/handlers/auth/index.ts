@@ -23,10 +23,12 @@ export const authLoginPost = async (req: Request, res: Response) => {
   res.cookie('accessToken', accessToken, {
     httpOnly: true,
     maxAge: 300000,
+    secure: true,
   });
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
     maxAge: 3.154e10,
+    secure: true,
   });
   res.send('login successfull');
 };

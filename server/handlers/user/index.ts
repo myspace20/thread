@@ -49,7 +49,7 @@ export const resetUserPassword = async (req: Request, res: Response) => {
 
 export const updateUserprofileAndActivateUser = async (req: Request, res: Response) => {
   const userService = new UserService();
-  console.log(req.user.userId, req.body, req.file);
+  // console.log(req.user.userId, req.body, req.file);
   // const result = userService.updateUserprofileAndActivateUser(req.user.userId,req.body)
   res.send('sent');
 };

@@ -14,6 +14,7 @@ class UserService {
   async getById(id: string) {
     return await this.userRepository.getById(id);
   }
+
   async signUp(signUpCredentials: createUser) {
     const registrationID = uuidv4();
     const user = await this.userRepository.getByEmail({

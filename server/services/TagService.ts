@@ -1,4 +1,4 @@
-import { createTag, tagId, tagQuery, tagUpdate } from '../interfaces';
+import { createTag, tagId, tagUpdate } from '../interfaces';
 import TagRepository from '../repositories/TagRepository';
 
 class TagService {

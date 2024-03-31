@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server/sever.ts",
-    "lint": "eslint . --ext .ts",
-    "prepare": "husky"
+    "build": "rm -rf dist && tsc",
+    "dev": "nodemon server/server.ts",
+    "prod": "cd dist/server/ && node server.js",
+    "lint": "eslint . --cache --fix",
+    "prepare": "husky",
+    "migrate": "cd server/infra/database && knex migrate:up"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"

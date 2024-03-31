@@ -1,24 +1,26 @@
 import { NextFunction, Request, Response } from 'express';
 import UserService from '../services/UserService';
+import { HttpError } from '../util/HttpError';
 
 async function authorization(req: Request, res: Response, next: NextFunction) {
-  const { refreshToken, accessToken } = req.cookies;
-
-  if (!refreshToken && !accessToken) {
-    return res.status(401).send('access restricted, no token passed');
-  }
   const userService = new UserService();
-  const user = req.user.userId;
+
+  const user = req.user;
+
   if (!user) {
-    return res.status(401).send('unauthorized');
+    return next(new HttpError(401, 'Unauthorized request'));
   }
-  const result = await userService.getById(user);
-  if (!result) {
-    return res.status(401).send('unauthorized');
+
+  if (user) {
+    const loggedInUser = await userService.getById(user.userId);
+
+    if (!loggedInUser.active && !loggedInUser.profile_complete) {
+      return next(
+        new HttpError(403, 'Please finish setting up your account by completing your profile'),
+      );
+    }
   }
-  // if (result.active != true && result.profile_complete != true) {
-  //   return res.status(401).send('please complete your profile');
-  // }
+
   next();
 }
 

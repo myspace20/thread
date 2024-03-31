@@ -6,17 +6,17 @@ class ThreadRepository {
   async getById(id: threadId) {
     const thread = await TABLE.THREAD.query()
       .findById(id)
+      .modify('defaultSelects')
       .withGraphFetched(
         '[posts(defaultSelects).[author(authorDetails),comments(defaultSelects),votes],comments(defaultSelects),votes]',
       )
-      .modify('defaultSelects')
-      .modifyGraph('votes', (builder) => {
-        builder.select('type').count('type').groupBy('votes.id');
-      })
       .modifyGraph('posts.votes', (builder) => {
         builder.select('type').count('type').groupBy('votes.id');
       })
-      .debug();
+      .modifyGraph('votes', (builder) => {
+        builder.select('type').count('type').groupBy('votes.id');
+      });
+
     if (!thread) throw new HttpError(404, 'thread not found');
     return thread;
   }

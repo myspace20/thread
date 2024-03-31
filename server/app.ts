@@ -37,27 +37,23 @@ app.use(cors());
 //   }),
 // );
 
-app.use(
-  helmet({
-    contentSecurityPolicy: false,
-  }),
-);
+app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(`${__dirname}/public/uploads`));
 
 const serverAdapter = new ExpressAdapter();
-serverAdapter.setBasePath('/ui');
+serverAdapter.setBasePath('/bull_dashboard');
 
 createBullBoard({
   queues: [new BullMQAdapter(mailQueue)],
   serverAdapter,
 });
 
-app.use('/bull_dashboard/ui', serverAdapter.getRouter());
-
 app.use(deserializeUser);
+
+app.use('/bull_dashboard', serverAdapter.getRouter());
 
 app.use('/api/v1', routes);
 
