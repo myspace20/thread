@@ -1,9 +1,10 @@
-import { createClient } from 'redis';
+import Redis from 'ioredis';
 import configs from './default';
 import { logger } from '../server/util/logger';
 
-const client = createClient({
-  url: configs.redis.url,
+const client = new Redis({
+  host: configs.redis.url,
+  port: Number(configs.redis.port),
 });
 
 const redisOptions = {
