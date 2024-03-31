@@ -1,11 +1,9 @@
 import { createClient } from 'redis';
 import configs from './default';
+import { logger } from '../server/util/logger';
 
 const client = createClient({
-  socket: {
-    host: configs.redis.url,
-    port: Number(configs.redis.port),
-  },
+  url: configs.redis.url,
 });
 
 const redisOptions = {
@@ -16,5 +14,9 @@ const redisOptions = {
 };
 
 client.connect();
+
+client.on('error', (error) => {
+  logger.error(`Redis client error:`, error);
+});
 
 export { client, redisOptions };
