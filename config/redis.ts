@@ -13,6 +13,7 @@ const client = createClient({
 
 const redisOptions = {
   redis: {
+    password: configs.redis.password,
     port: Number(configs.redis.port),
     host: configs.redis.url,
   },
