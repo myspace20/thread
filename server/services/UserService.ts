@@ -25,7 +25,7 @@ class UserService {
       password_hash: passwordHash,
       display_name: signUpCredentials.display_name,
     };
-    await redis.set(registrationID, JSON.stringify(userDetails));
+    await redis.hSet(registrationID, userDetails);
     redis.expire(registrationID, 2 * 24 * 60 * 60);
     const html = signUpHtmlContent(registrationID);
     const mailData = {
@@ -42,7 +42,7 @@ class UserService {
   }
 
   async verifyUserAccount(token: userToken) {
-    const result = (await redis.get(token)) as string;
+    const result = await redis.hGetAll(token);
     if (Object.keys(result).length === 0) throw new HttpError(400, 'verification link expired');
     const userData = JSON.stringify(result);
     const parse = JSON.parse(userData);

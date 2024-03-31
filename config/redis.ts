@@ -1,11 +1,13 @@
-import Redis from 'ioredis';
+import Redis from 'redis';
 import configs from './default';
 import { logger } from '../server/util/logger';
 
-const client = new Redis({
-  host: configs.redis.url,
-  port: Number(configs.redis.port),
-  enableOfflineQueue: false,
+const client = Redis.createClient({
+  socket: {
+    host: configs.redis.url,
+    port: Number(configs.redis.port),
+  },
+  disableOfflineQueue: true,
 });
 
 const redisOptions = {
