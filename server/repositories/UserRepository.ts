@@ -3,8 +3,8 @@ import TABLE from '../models';
 import { HttpError } from '../util/HttpError';
 
 class UserRepository {
-  async getByEmail(email: userQuery) {
-    return await TABLE.USER.query().findOne(email);
+  async getByEmail(email: string) {
+    return await TABLE.USER.query().findOne({ email });
   }
 
   async getById(id: userId) {

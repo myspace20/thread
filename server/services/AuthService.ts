@@ -13,9 +13,8 @@ export default class AuthService {
   async login(loginCredentials: login) {
     const userRepository = new UserRepository();
     const authRepository = new AuthRepository();
-    const user = await userRepository.getByEmail({
-      email: loginCredentials.email,
-    });
+    const user = await userRepository.getByEmail(loginCredentials.email);
+    console.log(user);
     if (!user) throw new HttpError(409, 'invalid email or password');
     if (!user.active)
       throw new HttpError(401, 'account email not verified, please verify your account');

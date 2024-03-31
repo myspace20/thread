@@ -17,9 +17,7 @@ class UserService {
 
   async signUp(signUpCredentials: createUser) {
     const registrationID = uuidv4();
-    const user = await this.userRepository.getByEmail({
-      email: signUpCredentials.email,
-    });
+    const user = await this.userRepository.getByEmail(signUpCredentials.email);
     if (user) throw new HttpError(409, 'user account exists, please log in');
     const passwordHash = await bcrypt.hash(signUpCredentials.password, 10);
     const userDetails = {
@@ -53,7 +51,7 @@ class UserService {
     return user;
   }
 
-  async requestUserPasswordReset(email: userQuery) {
+  async requestUserPasswordReset(email: string) {
     const user = await this.userRepository.getByEmail(email);
     if (!user) throw new HttpError(404, 'user not found');
     const resetID = uuidv4();

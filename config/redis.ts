@@ -5,6 +5,7 @@ import { logger } from '../server/util/logger';
 const client = new Redis({
   host: configs.redis.url,
   port: Number(configs.redis.port),
+  enableOfflineQueue: false,
 });
 
 const redisOptions = {
