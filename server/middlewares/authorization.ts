@@ -8,7 +8,7 @@ async function authorization(req: Request, res: Response, next: NextFunction) {
   const user = req.user;
 
   if (!user) {
-    return next(new HttpError(401, 'Unauthorized request'));
+    return next(new HttpError(401, 'unauthorized request'));
   }
 
   if (user) {

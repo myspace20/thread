@@ -1,9 +1,10 @@
-import VoteRepository, { Vote } from '../repositories/VoteRepository';
+import { createVote } from '../interfaces';
+import VoteRepository from '../repositories/VoteRepository';
 
 class VoteService {
   private voteRepository = new VoteRepository();
 
-  async castVote(data: Vote) {
+  async castVote(data: createVote) {
     const vote = await this.voteRepository.getByFilter(data);
     if (vote) {
       await this.voteRepository.deleteVote(vote.id);

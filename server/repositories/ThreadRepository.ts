@@ -8,7 +8,7 @@ class ThreadRepository {
       .findById(id)
       .modify('defaultSelects')
       .withGraphFetched(
-        '[posts(defaultSelects).[author(authorDetails),comments(defaultSelects),votes],comments(defaultSelects),votes]',
+        '[posts(defaultSelects).[author(authorDetails),comments(defaultSelects),votes],comments(defaultSelects),votes,tags]',
       )
       .modifyGraph('posts.votes', (builder) => {
         builder.select('type').count('type').groupBy('votes.id');

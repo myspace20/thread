@@ -16,8 +16,6 @@ export default class AuthService {
     const user = await userRepository.getByEmail(loginCredentials.email);
     console.log(user);
     if (!user) throw new HttpError(409, 'invalid email or password');
-    if (!user.active)
-      throw new HttpError(401, 'account email not verified, please verify your account');
     const passwordMatch = await bcrypt.compare(loginCredentials.password, user.password_hash);
     if (!passwordMatch) throw new HttpError(409, 'invalid email or password');
     const authSession = await authRepository.create(user.id);

@@ -3,11 +3,6 @@ import TABLE from '../models';
 import { voteShape } from '../models/Vote';
 import { HttpError } from '../util/HttpError';
 
-type Filter = Pick<voteShape, 'post_id' | 'thread_id' | 'user_id' | 'type'>;
-type Vote = Pick<voteShape, 'post_id' | 'thread_id' | 'user_id' | 'type'>;
-
-export { Filter, Vote };
-
 class VoteRepository {
   async getById(id: voteId) {
     const vote = await TABLE.VOTE.query().findById(id);

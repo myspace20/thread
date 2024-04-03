@@ -24,11 +24,7 @@ export type userId = string;
 
 export type userToken = string;
 
-enum Role {
-  'basic',
-  'moderator',
-  'admin',
-}
+export type userEmail = string;
 
 export interface createUser {
   email: string;
@@ -41,7 +37,7 @@ export interface userQuery {
   email?: string;
   display_name?: string;
   active?: boolean;
-  role?: Role;
+  role?: string;
   profile_complete?: boolean;
   created_at?: Date;
   updated_at?: Date;
@@ -54,7 +50,7 @@ export interface userUpdate {
   description?: string;
   image_url?: string;
   active?: boolean;
-  role?: Role;
+  role?: string;
   profile_complete?: boolean;
 }
 
