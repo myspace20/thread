@@ -7,7 +7,7 @@ import dbInstance from './infra/database/connect';
 dotenv.config();
 
 const startServer = async (app: Application) => {
-  app.listen(5000, () => {
+  app.listen(10000, () => {
     dbInstance;
     logger.info('server is up on 5000');
   });

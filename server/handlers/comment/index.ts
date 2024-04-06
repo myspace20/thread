@@ -38,6 +38,7 @@ export const createPostComment = async (req: Request, res: Response) => {
 
 export const editThreadComment = async (req: Request, res: Response) => {
   const commentQueryObject = {
+    id: req.params.id,
     thread_id: req.params.thread_id,
     user_id: req.user.userId,
   };
@@ -54,6 +55,7 @@ export const editThreadComment = async (req: Request, res: Response) => {
 
 export const editPostComment = async (req: Request, res: Response) => {
   const commentQueryObject = {
+    id: req.params.id,
     post_id: req.params.post_id,
     user_id: req.user.userId,
   };
@@ -70,6 +72,7 @@ export const editPostComment = async (req: Request, res: Response) => {
 
 export const deleteThreadComment = async (req: Request, res: Response) => {
   const commentQueryObject = {
+    id: req.params.id,
     thread_id: req.params.thread_id,
     user_id: req.user.userId,
   };
@@ -83,6 +86,7 @@ export const deleteThreadComment = async (req: Request, res: Response) => {
 
 export const deletePostComment = async (req: Request, res: Response) => {
   const commentQueryObject = {
+    id: req.params.id,
     post_id: req.params.post_id,
     user_id: req.user.userId,
   };

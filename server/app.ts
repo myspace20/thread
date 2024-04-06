@@ -4,7 +4,6 @@ import routes from './routes/index';
 import { errorHandler, handlerWrapper } from './util';
 import helmet from 'helmet';
 import { mailQueue } from './workers/email';
-import { deserializeUser } from './middlewares/deserializeUser';
 const { createBullBoard } = require('@bull-board/api');
 const { BullMQAdapter } = require('@bull-board/api/bullMQAdapter');
 const { ExpressAdapter } = require('@bull-board/express');
@@ -13,10 +12,17 @@ import { http_request_counter, http_request_duration_milliseconds } from './util
 import responseTime from 'response-time';
 import { HttpError } from './util/HttpError';
 import { logger } from './util/logger';
+import authorization from './middlewares/authorization';
+import { admin } from './middlewares/roles';
 
 const app: Application = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: '*',
+    credentials: true,
+  }),
+);
 
 // app.use(
 //   handlerWrapper((req:Request, _res:Response, next:NextFunction) => {
@@ -51,9 +57,7 @@ createBullBoard({
   serverAdapter,
 });
 
-app.use(deserializeUser);
-
-app.use('/bull_dashboard', serverAdapter.getRouter());
+app.use('/bull_dashboard', authorization, admin, serverAdapter.getRouter());
 
 app.use('/api/v1', routes);
 

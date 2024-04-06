@@ -12,13 +12,19 @@ export default class AuthService {
 
   async login(loginCredentials: login) {
     const userRepository = new UserRepository();
-    const authRepository = new AuthRepository();
     const user = await userRepository.getByEmail(loginCredentials.email);
-    console.log(user);
-    if (!user) throw new HttpError(409, 'invalid email or password');
+    if (!user) {
+      throw new HttpError(409, 'invalid email or password');
+    }
     const passwordMatch = await bcrypt.compare(loginCredentials.password, user.password_hash);
-    if (!passwordMatch) throw new HttpError(409, 'invalid email or password');
-    const authSession = await authRepository.create(user.id);
-    return { sessionId: authSession.id, userId: user.id };
+    if (!passwordMatch) {
+      throw new HttpError(409, 'invalid email or password');
+    }
+    return {
+      userId: user.id,
+      role: user.role,
+      isActive: user.active,
+      profileComplete: user.profile_complete,
+    };
   }
 }

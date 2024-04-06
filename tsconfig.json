@@ -8,8 +8,9 @@
     "skipLibCheck": true,
     "rootDirs": ["/server"],
     "alwaysStrict": false,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "allowJs": true
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "scripts/keypair.mjs"],
   "exclude": ["node_modules"]
 }

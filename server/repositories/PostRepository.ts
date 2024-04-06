@@ -16,11 +16,13 @@ class PostRepository {
   }
 
   async create(data: createPost) {
-    return await TABLE.POST.query().insert(data);
+    await TABLE.POST.query().insert(data);
+    return;
   }
 
   async patch(id: postId, data: postUpdate) {
-    return await TABLE.POST.query().patchAndFetchById(id, data);
+    await TABLE.POST.query().patchAndFetchById(id, data);
+    return;
   }
 
   async delete(id: postId) {

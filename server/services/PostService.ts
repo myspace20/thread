@@ -15,17 +15,8 @@ class PostService {
     return this.postRepository.create(data);
   }
 
-  async setPostAsAccepted(query: postQuery, id: postId) {
-    //get owner of thread
-    const thread = await this.threadRepository.getByFilter(query);
-    if (thread.user_id != query.user_id) {
-      throw new HttpError(403, 'permission denied');
-    }
-    //get post to set as accepted
-    const post = await this.postRepository.getById(id);
-    if (post.thread_id != thread.id) {
-      throw new HttpError(403, 'permission denied');
-    }
+  async setPostAsAccepted(query: postQuery) {
+    const post = await this.postRepository.getByFilter(query);
     await this.postRepository.patch(post.id, {
       is_accepted: true,
     });
@@ -34,13 +25,11 @@ class PostService {
 
   async editPost(query: postQuery, data: postUpdate) {
     const post = await this.postRepository.getByFilter(query);
-    if (post.user_id != query.user_id) throw new HttpError(403, 'permission denied');
     return await this.postRepository.patch(post.id, data);
   }
 
   async deletePost(query: postQuery) {
     const post = await this.postRepository.getByFilter(query);
-    if (post.user_id != query.user_id) throw new HttpError(403, 'permission denied');
     return await this.postRepository.delete(post.id);
   }
 }

@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import PostService from '../../services/PostService';
-import { createPostSchema, postParamsSchema, postQuerySchema, postTextSchema } from './schema';
-import { threadQuerySchema } from '../thread/schema';
+import { createPostSchema, postQuerySchema, postTextSchema } from './schema';
 
 export const createPost = async (req: Request, res: Response) => {
   const postObject = {
@@ -19,6 +18,7 @@ export const createPost = async (req: Request, res: Response) => {
 
 export const editPost = async (req: Request, res: Response) => {
   const postQueryObject = {
+    id: req.params.id,
     thread_id: req.params.thread_id,
     user_id: req.user.userId,
   };
@@ -34,23 +34,19 @@ export const editPost = async (req: Request, res: Response) => {
 };
 
 export const setPostAsAccepted = async (req: Request, res: Response) => {
-  const threadQueryObject = {
-    id: req.params.thread_id,
+  const postQueryObject = {
+    thread_id: req.params.thread_id,
+    id: req.params.id,
     user_id: req.user.userId,
   };
-  await postParamsSchema.validateAsync(req.params, {
-    abortEarly: false,
-  });
-  await threadQuerySchema.validateAsync(threadQueryObject, {
-    abortEarly: false,
-  });
   const postService = new PostService();
-  const result = await postService.setPostAsAccepted(threadQueryObject, req.params.id);
+  const result = await postService.setPostAsAccepted(postQueryObject);
   res.send(result);
 };
 
 export const deletePost = async (req: Request, res: Response) => {
   const postQueryObject = {
+    id: req.params.id,
     thread_id: req.params.thread_id,
     user_id: req.user.userId,
   };

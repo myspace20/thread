@@ -1,18 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import UserService from '../services/UserService';
+import { HttpError } from '../util/HttpError';
 
 async function admin(req: Request, res: Response, next: NextFunction) {
-  const userService = new UserService();
   const user = req.user;
 
-  if (user) {
-    const result = await userService.getById(user);
-    if (!result) {
-      return res.status(401).send('unauthorized');
-    }
-    if (result.role != 'admin') {
-      return res.status(403).send('access restricted');
-    }
+  if (!user || user.role !== 'admin') {
+    return next(new HttpError(403, 'Access Restricted'));
   }
 
   next();

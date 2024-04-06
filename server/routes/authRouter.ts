@@ -1,6 +1,6 @@
 import express from 'express';
 import { handlerWrapper } from '../util';
-import { authLoginPost } from '../handlers/auth';
+import { authLoginPost, logoutHandler, refreshTokenHandler } from '../handlers/auth';
 import {
   createUserAccount,
   requestUserPasswordReset,
@@ -15,6 +15,10 @@ const router = express.Router();
 router.post('/sign_up', handlerWrapper(createUserAccount));
 
 router.post('/login', handlerWrapper(authLoginPost));
+
+router.delete('/logout', handlerWrapper(logoutHandler));
+
+router.post('/refresh_token', handlerWrapper(refreshTokenHandler));
 
 router.get('/auth/verify/:token', handlerWrapper(userVerifyAccount));
 

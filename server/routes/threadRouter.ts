@@ -5,14 +5,14 @@ import authorization from '../middlewares/authorization';
 
 const router = express.Router();
 
-router.post('/threads', handlerWrapper(threadPost));
+router.post('/threads', authorization, handlerWrapper(threadPost));
 
-router.get('/threads/:id', handlerWrapper(threadGet));
+router.get('/threads/:id', authorization, handlerWrapper(threadGet));
 
 router.get('/threads', authorization, handlerWrapper(threadsGet));
 
-router.patch('/threads/:id', handlerWrapper(editThread));
+router.patch('/threads/:id', authorization, handlerWrapper(editThread));
 
-router.delete('/threads/:id', handlerWrapper(deleteThread));
+router.delete('/threads/:id', authorization, handlerWrapper(deleteThread));
 
 export default router;

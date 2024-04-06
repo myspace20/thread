@@ -1,25 +1,29 @@
 import { NextFunction, Request, Response } from 'express';
-import UserService from '../services/UserService';
+import config from '../../config/default';
 import { HttpError } from '../util/HttpError';
+import { JwtPayload } from 'jsonwebtoken';
+import { JWTService } from '../services/JWTService';
 
 async function authorization(req: Request, res: Response, next: NextFunction) {
-  const userService = new UserService();
+  const { accessToken } = req.cookies;
 
-  const user = req.user;
-
-  if (!user) {
-    return next(new HttpError(401, 'unauthorized request'));
+  if (!accessToken) {
+    return next(new HttpError(404, 'Authorization required'));
   }
 
-  if (user) {
-    const loggedInUser = await userService.getById(user.userId);
+  const { userId, role, isActive, profileComplete } = JWTService.verify(
+    accessToken,
+    config.keys.accessTokenPublicKey,
+    config.accessTokenVerifyOptions,
+  ) as unknown as JwtPayload;
 
-    if (!loggedInUser.active && !loggedInUser.profile_complete) {
-      return next(
-        new HttpError(403, 'Please finish setting up your account by completing your profile'),
-      );
-    }
+  if ({ userId, role, isActive, profileComplete }) {
+    req.user = { userId, role, isActive, profileComplete };
   }
+
+  // if(!isActive && !profileComplete){
+  //   return next(new HttpError(401,"Account verification is required"))
+  // }
 
   next();
 }

@@ -1,9 +1,9 @@
 import Joi from 'joi';
 
-const postParamsSchema = Joi.object({
-  id: Joi.string().uuid().required(),
-  thread_id: Joi.string().uuid().required(),
-}).or('id', 'thread_id');
+// const postParamsSchema = Joi.object({
+//   id: Joi.string().uuid().required(),
+//   thread_id: Joi.string().uuid().required(),
+// }).or('id', 'thread_id');
 
 const createPostSchema = Joi.object({
   text: Joi.string().required().min(5).max(400),
@@ -12,7 +12,8 @@ const createPostSchema = Joi.object({
 });
 
 const postQuerySchema = Joi.object({
-  post_id: Joi.string().uuid().required(),
+  id: Joi.string().uuid().required(),
+  thread_id: Joi.string().uuid().required(),
   user_id: Joi.string().uuid().required(),
 });
 
@@ -20,4 +21,4 @@ const postTextSchema = Joi.object({
   text: Joi.string().required().min(5).max(400),
 });
 
-export { postParamsSchema, createPostSchema, postQuerySchema, postTextSchema };
+export { createPostSchema, postQuerySchema, postTextSchema };
