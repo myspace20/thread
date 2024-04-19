@@ -1,7 +1,6 @@
 import appRootPath from 'app-root-path';
 import * as dotenv from 'dotenv';
 dotenv.config({ path: `${appRootPath.path}/.env` });
-import jwt from 'jsonwebtoken';
 
 const accessTokenSigningOptions = {
   issuer: 'mychats',
@@ -35,9 +34,9 @@ const keys = {
 
 const salt = process.env.SALT;
 
-const port = process.env.PORT;
+const port = Number(process.env.PORT);
 
-const host = process.env.HOST;
+const host = String(process.env.HOST);
 
 const redis = {
   url: process.env.REDIS_HOST_URL,

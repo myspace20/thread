@@ -7,6 +7,7 @@ import {
   threadQuerySchema,
   threadTagList,
 } from './schema';
+import { threadCounter } from '../../util/metrics';
 
 export const threadsGet = async (req: Request, res: Response) => {
   const threadService = new ThreadService();
@@ -33,6 +34,7 @@ export const threadPost = async (req: Request, res: Response) => {
   await threadTagList.validateAsync(req.body.tags, { abortEarly: false });
   const threadService = new ThreadService();
   const result = await threadService.createThread(req.body.tags, threadObject);
+  threadCounter.inc();
   res.status(201).send(result);
 };
 

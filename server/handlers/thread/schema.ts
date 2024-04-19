@@ -11,8 +11,8 @@ const createThreadSchema = Joi.object({
 });
 
 const editThreadSchema = Joi.object({
-  title: Joi.string().required().min(5).max(120),
-  text: Joi.string().required().min(5).max(120),
+  title: Joi.string().min(5).max(120).optional(),
+  text: Joi.string().min(5).max(120).optional(),
 }).or('title', 'text');
 
 const threadQuerySchema = Joi.object({

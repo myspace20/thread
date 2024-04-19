@@ -6,7 +6,7 @@ import {
   signUpSchema,
   updatePasswordSchema,
 } from '../auth/schema';
-import { logger } from '../../util/logger';
+import { sigupCounter } from '../../util/metrics';
 
 export const createUserAccount = async (req: Request, res: Response) => {
   await signUpSchema.validateAsync(req.body, {
@@ -14,6 +14,7 @@ export const createUserAccount = async (req: Request, res: Response) => {
   });
   const userService = new UserService();
   const email = await userService.signUp(req.body);
+  sigupCounter.inc();
   res.send(email);
 };
 

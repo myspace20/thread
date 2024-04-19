@@ -14,7 +14,7 @@ export default class Post extends Model {
 
   static modifiers = {
     defaultSelects(builder: QueryBuilder<Model>) {
-      builder.select('id', 'is_accepted', 'thread_id', 'created_at');
+      builder.select('id', 'is_accepted', 'thread_id', 'created_at', 'text');
     },
   };
 

@@ -5,18 +5,35 @@ const Registry = client.Registry;
 const register = new Registry();
 collectDefaultMetrics({ register });
 
-export const http_request_counter = new client.Counter({
-  name: 'myapp_http_request_count',
-  help: 'Count of HTTP requests made to my app',
+export const httpRequestCounter = new client.Counter({
+  name: 'thread_api_http_request_count',
+  help: 'Count of HTTP requests made to ',
   labelNames: ['method', 'route', 'statusCode'],
 });
-register.registerMetric(http_request_counter);
+register.registerMetric(httpRequestCounter);
 
-export const http_request_duration_milliseconds = new client.Histogram({
-  name: 'myapp_http_request_duration_milliseconds',
+export const httpRequestsInMilliSeconds = new client.Histogram({
+  name: 'thread_api_http_request_duration_milliseconds',
   help: 'Duration of HTTP requests in milliseconds.',
   labelNames: ['method', 'route', 'code'],
 });
-register.registerMetric(http_request_duration_milliseconds);
+
+register.registerMetric(httpRequestsInMilliSeconds);
+
+export const sigupCounter = new client.Counter({
+  name: 'thread_api_user_signup_count',
+  help: 'Count of user signups',
+  labelNames: ['method', 'route', 'code'],
+});
+
+register.registerMetric(sigupCounter);
+
+export const threadCounter = new client.Counter({
+  name: 'thread_api_thread_count',
+  help: 'Count of threads created',
+  labelNames: ['method', 'route', 'code'],
+});
+
+register.registerMetric(threadCounter);
 
 export default register;

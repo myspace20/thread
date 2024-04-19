@@ -9,6 +9,7 @@
     "rootDirs": ["/server"],
     "alwaysStrict": false,
     "strictPropertyInitialization": false,
+    "resolveJsonModule": true,
     "allowJs": true
   },
   "include": ["**/*.ts", "scripts/keypair.mjs"],
