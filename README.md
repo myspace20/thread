@@ -74,10 +74,11 @@ iii. The Infrastructure layer is responsible for communication with databases, t
 - Postgresql
 - Knex with Objection Js
 - Redis for Job Queues
-- typescript
+
 
 ## Development Toolkit
 
+- typescript
 - husky
 - prettier
 - eslint
