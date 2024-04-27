@@ -1,7 +1,3 @@
-import appRootPath from 'app-root-path';
-import * as dotenv from 'dotenv';
-dotenv.config({ path: `${appRootPath.path}/.env` });
-
 const accessTokenSigningOptions = {
   issuer: 'mychats',
   expiresIn: '5m',

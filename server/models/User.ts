@@ -1,4 +1,3 @@
-import { QueryBuilder } from 'knex';
 import { Model, ModelObject } from 'objection';
 
 export default class User extends Model {

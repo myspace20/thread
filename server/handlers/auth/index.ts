@@ -3,8 +3,9 @@ import AuthService from '../../services/AuthService';
 import { JWTService } from '../../services/JWTService';
 import config from '../../../config/default';
 import { loginSchema } from './schema';
-import { HttpError } from '../../util/HttpError';
 import { JwtPayload } from 'jsonwebtoken';
+
+console.log(config.keys);
 
 export const authLoginPost = async (req: Request, res: Response) => {
   await loginSchema.validateAsync(req.body, {

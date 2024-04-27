@@ -1,5 +1,4 @@
 import JWTTools, { JwtPayload, Secret } from 'jsonwebtoken';
-import { HttpError } from '../util/HttpError';
 
 export class JWTService {
   static sign(payload: JwtPayload, key: Secret, options: object) {

@@ -1,6 +1,6 @@
 import { createClient } from 'redis';
-import configs from './default';
-import { logger } from '../server/util/logger';
+import configs from '../../../config/default';
+import { logger } from '../../util/logger';
 
 const client = createClient({
   password: configs.redis.password,
@@ -8,6 +8,7 @@ const client = createClient({
     host: configs.redis.url,
     port: Number(configs.redis.port),
   },
+  legacyMode: true,
   disableOfflineQueue: true,
 });
 

@@ -3,7 +3,6 @@ import { HttpError } from './HttpError';
 import { ValidationError } from 'joi';
 import { mailQueue } from '../workers/email';
 import configs from '../../config/default';
-import { userQuery } from '../interfaces';
 // import configs from "../../config/default";
 
 /*

@@ -4,8 +4,9 @@ import * as dotenv from 'dotenv';
 import { logger } from './util/logger';
 import dbInstance from './infra/database/connect';
 import config from '../config/default';
+import path from 'path';
 
-dotenv.config();
+require('dotenv').config({ path: path.resolve(__dirname, '../.env'), override: true });
 
 const startServer = async (app: Application) => {
   app.listen(config.port, config.host, () => {

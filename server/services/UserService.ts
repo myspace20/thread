@@ -3,7 +3,7 @@ import UserRepository from '../repositories/UserRepository';
 import { HttpError } from '../util/HttpError';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
-import { client as redis } from '../../config/redis';
+import { client as redis } from '../infra/others/redis';
 import { passwordResetContent, sendMail, signUpHtmlContent } from '../util';
 import { createUser, userId, userQuery, userToken, userUpdate } from '../interfaces';
 

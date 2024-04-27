@@ -8,7 +8,7 @@ async function authorization(req: Request, res: Response, next: NextFunction) {
   const { accessToken } = req.cookies;
 
   if (!accessToken) {
-    return next(new HttpError(404, 'Authorization required'));
+    return next(new HttpError(401, 'Authorization required'));
   }
 
   const { userId, role, isActive, profileComplete } = JWTService.verify(

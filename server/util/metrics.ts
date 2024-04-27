@@ -23,7 +23,6 @@ register.registerMetric(httpRequestsInMilliSeconds);
 export const sigupCounter = new client.Counter({
   name: 'thread_api_user_signup_count',
   help: 'Count of user signups',
-  labelNames: ['method', 'route', 'code'],
 });
 
 register.registerMetric(sigupCounter);
@@ -31,7 +30,6 @@ register.registerMetric(sigupCounter);
 export const threadCounter = new client.Counter({
   name: 'thread_api_thread_count',
   help: 'Count of threads created',
-  labelNames: ['method', 'route', 'code'],
 });
 
 register.registerMetric(threadCounter);

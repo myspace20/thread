@@ -1,7 +1,7 @@
 import Queue from 'bull';
-import transport from '../../config/mail';
+import transport from '../infra/others/mail';
 import { HttpError } from '../util/HttpError';
-import { redisOptions } from '../../config/redis';
+import { redisOptions } from '../infra/others/redis';
 
 export const mailQueue = new Queue('email', redisOptions);
 
