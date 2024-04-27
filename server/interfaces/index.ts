@@ -196,3 +196,12 @@ export interface voteQuery {
   created_at?: Date;
   updated_at?: Date;
 }
+
+//mail
+
+export interface sendMail {
+  to: string;
+  from: string;
+  subject: string;
+  html: string;
+}

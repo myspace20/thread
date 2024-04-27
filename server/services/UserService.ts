@@ -83,14 +83,15 @@ class UserService {
     return 'Password reset successfull';
   }
 
-  async updateUserprofileAndActivateUser(id: userId, profileData: userUpdate) {
+  async activateUser(id: userId, data: userUpdate) {
     const user = await this.userRepository.getById(id);
-    const updateData = {
-      ...profileData,
-      active: true,
-      profile_complete: true,
-    };
-    await this.userRepository.patch(user.id, updateData);
+    await this.userRepository.patch(user.id, data);
+    return 'user activated successfully';
+  }
+
+  async updateProfile(id: userId, data: userUpdate) {
+    const user = await this.userRepository.getById(id);
+    await this.userRepository.patch(user.id, data);
     return 'profile updated successfully';
   }
 }

@@ -3,7 +3,6 @@ import { createClient } from '@supabase/supabase-js';
 import config from '../../../../../disease-classifier/config/default';
 import { decode } from 'base64-arraybuffer';
 import fs from 'fs';
-import { HttpError } from '../../../../../disease-classifier/server/util/HttpError';
 
 const supabase = createClient(config.supabaseConnString, config.supabaseKey);
 

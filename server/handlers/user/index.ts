@@ -1,12 +1,15 @@
 import { Request, Response } from 'express';
 import UserService from '../../services/UserService';
 import {
+  activateProfileSchema,
   authParamSchema,
   passwordResetRequestSchema,
   signUpSchema,
   updatePasswordSchema,
+  updateProfileSchema,
 } from '../auth/schema';
 import { sigupCounter } from '../../util/metrics';
+import uploads from '../../infra/file-storage/uploads';
 
 export const createUserAccount = async (req: Request, res: Response) => {
   await signUpSchema.validateAsync(req.body, {
@@ -48,9 +51,33 @@ export const resetUserPassword = async (req: Request, res: Response) => {
   res.send(passwordReset);
 };
 
-export const updateUserprofileAndActivateUser = async (req: Request, res: Response) => {
+export const activateUser = async (req: Request, res: Response) => {
   const userService = new UserService();
-  // console.log(req.user.userId, req.body, req.file);
-  // const result = userService.updateUserprofileAndActivateUser(req.user.userId,req.body)
-  res.send('sent');
+  const image_url = await uploads.uploadToSupabase(req.file);
+  const data = {
+    description: req.body.description,
+    image_url,
+    active: true,
+    profile_complete: true,
+  };
+  await activateProfileSchema.validateAsync(data, { abortEarly: false });
+  await userService.activateUser(req.user.userId, data);
+  res.send('profile updated sucessfully');
+};
+
+export const updateProfile = async (req: Request, res: Response) => {
+  const userService = new UserService();
+  let image;
+  if (req.file) {
+    const image_url = await uploads.uploadToSupabase(req.file);
+    image = image_url;
+  }
+  const data = {
+    description: req.body.description,
+    image_url: image,
+    display_name: req.body.display_name,
+  };
+  await updateProfileSchema.validateAsync(data, { abortEarly: false });
+  await userService.activateUser(req.user.userId, data);
+  res.send('profile updated sucessfully');
 };

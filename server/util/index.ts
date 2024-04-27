@@ -3,6 +3,7 @@ import { HttpError } from './HttpError';
 import { ValidationError } from 'joi';
 import { mailQueue } from '../workers/email';
 import configs from '../../config/default';
+import { sendMail } from '../interfaces';
 // import configs from "../../config/default";
 
 /*
@@ -47,7 +48,7 @@ export function errorHandler(err: Error, req: Request, res: Response, _next: Nex
 }
 
 export function signUpHtmlContent(registrationId: string) {
-  const verificationUrl = `${configs.host}/auth/verify/${registrationId}`;
+  const verificationUrl = `${configs.host}/auth/email/verify/${registrationId}`;
   return `<a href=${verificationUrl}>Click here to verify</a>`;
 }
 export function passwordResetContent(resetId: string) {
@@ -55,12 +56,6 @@ export function passwordResetContent(resetId: string) {
   return `<a href=${verificationUrl}>Click here to reset</a>`;
 }
 
-type TSendMail = {
-  to: string;
-  from: string;
-  subject: string;
-  html: string;
-};
-export function sendMail(name: string, mailData: TSendMail, options: object) {
+export function sendMail(name: string, mailData: sendMail, options: object) {
   return mailQueue.add(name, mailData, options);
 }

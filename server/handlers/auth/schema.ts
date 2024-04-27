@@ -15,15 +15,17 @@ const signUpSchema = Joi.object({
   display_name: Joi.string().required().min(5).max(30),
 });
 
-const completeProfileSchema = Joi.object({
+const activateProfileSchema = Joi.object({
   description: Joi.string().required().min(10).max(80),
-  image_url: Joi.string().required().base64(),
+  image_url: Joi.string().required().uri(),
+  active: Joi.boolean().required().valid(true),
+  profile_complete: Joi.boolean().required().valid(true),
 });
 
 const updateProfileSchema = Joi.object({
-  display_name: Joi.string().required().min(5).max(30),
-  description: Joi.string().required().min(10).max(80),
-  image_url: Joi.string().required().base64(),
+  display_name: Joi.string().required().min(5).max(30).optional(),
+  description: Joi.string().required().min(10).max(80).optional(),
+  image_url: Joi.string().required().uri().optional(),
 }).or('display_name', 'description', 'image_url');
 
 const updatePasswordSchema = Joi.object({
@@ -38,8 +40,8 @@ export {
   loginSchema,
   authParamSchema,
   signUpSchema,
-  completeProfileSchema,
   updateProfileSchema,
   updatePasswordSchema,
   passwordResetRequestSchema,
+  activateProfileSchema,
 };
