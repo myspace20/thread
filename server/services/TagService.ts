@@ -4,6 +4,10 @@ import TagRepository from '../repositories/TagRepository';
 class TagService {
   private tagRepository = new TagRepository();
 
+  async getById(id: tagId) {
+    return await this.tagRepository.getById(id);
+  }
+
   async getAllTags() {
     return await this.tagRepository.get();
   }

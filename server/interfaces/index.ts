@@ -28,7 +28,7 @@ export type userEmail = string;
 
 export interface createUser {
   email: string;
-  password: string;
+  password_hash: string;
   display_name: string;
 }
 

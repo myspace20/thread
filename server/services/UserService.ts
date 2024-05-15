@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt';
 import { client as redis } from '../infra/others/redis';
 import { passwordResetContent, sendMail, signUpHtmlContent } from '../util';
 import { createUser, userId, userQuery, userToken, userUpdate } from '../interfaces';
+import HashService from './HashService';
 
 class UserService {
   private userRepository = new UserRepository();
@@ -18,7 +19,7 @@ class UserService {
     const registrationID = uuidv4();
     const user = await this.userRepository.getByEmail(signUpCredentials.email);
     if (user) throw new HttpError(409, 'user account exists, please log in');
-    const passwordHash = await bcrypt.hash(signUpCredentials.password, 10);
+    const passwordHash = await HashService.createHash(signUpCredentials.password_hash);
     const userDetails = {
       email: signUpCredentials.email,
       password_hash: passwordHash,

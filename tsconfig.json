@@ -12,6 +12,6 @@
     "resolveJsonModule": true,
     "allowJs": true
   },
-  "include": ["**/*.ts", "scripts/keypair.mjs"],
-  "exclude": ["node_modules"]
+  "include": ["server/**/*", "scripts/keypair.mjs", "jest.setup.js", "!**/*.spec.ts"],
+  "exclude": ["node_modules", "**/*.spec.*", "**/*.test.*"]
 }

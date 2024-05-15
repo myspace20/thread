@@ -1,3 +1,7 @@
+import path = require('path');
+
+require('dotenv').config({ path: path.resolve(__dirname, '../.env'), override: true });
+
 const accessTokenSigningOptions = {
   issuer: 'mychats',
   expiresIn: '5m',

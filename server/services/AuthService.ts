@@ -3,6 +3,7 @@ import { HttpError } from '../util/HttpError';
 import bcrypt from 'bcrypt';
 import AuthRepository from '../repositories/AuthRepository';
 import { authId, login } from '../interfaces';
+import HashService from './HashService';
 
 export default class AuthService {
   async getById(id: authId) {
@@ -16,7 +17,10 @@ export default class AuthService {
     if (!user) {
       throw new HttpError(409, 'invalid email or password');
     }
-    const passwordMatch = await bcrypt.compare(loginCredentials.password, user.password_hash);
+    const passwordMatch = await HashService.verifyHash(
+      loginCredentials.password,
+      user.password_hash,
+    );
     if (!passwordMatch) {
       throw new HttpError(409, 'invalid email or password');
     }

@@ -1,6 +1,5 @@
 import { createVote, voteId, voteQuery } from '../interfaces';
 import TABLE from '../models';
-import { voteShape } from '../models/Vote';
 import { HttpError } from '../util/HttpError';
 
 class VoteRepository {

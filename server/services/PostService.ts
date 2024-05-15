@@ -5,7 +5,6 @@ import { HttpError } from '../util/HttpError';
 
 class PostService {
   private postRepository = new PostRepository();
-  private threadRepository = new ThreadRepository();
 
   async getById(id: postId) {
     return this.postRepository.getById(id);
