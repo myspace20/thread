@@ -75,7 +75,6 @@ iii. The Infrastructure layer is responsible for communication with databases, t
 - Knex with Objection Js
 - Redis for Job Queues
 
-
 ## Development Toolkit
 
 - typescript
@@ -123,7 +122,10 @@ Private Key:
 ```javascript
 import path from 'path';
 
-require('dotenv').config({ path: path.resolve(__dirname, '../.env'), override: true });
+require('dotenv').config({
+  path: path.resolve(__dirname, '../.env'),
+  override: true,
+});
 ```
 
 ## Workflow with Github Actions

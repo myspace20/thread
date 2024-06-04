@@ -1,3 +1,2 @@
 import request from 'supertest';
-
-request();
+import app from '../app';

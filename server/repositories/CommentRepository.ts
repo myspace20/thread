@@ -1,4 +1,9 @@
-import { commentId, commentQuery, commentUpdate, createComment } from '../interfaces';
+import {
+  commentId,
+  commentQuery,
+  commentUpdate,
+  createComment,
+} from '../interfaces';
 import TABLE from '../models';
 import { HttpError } from '../util/HttpError';
 

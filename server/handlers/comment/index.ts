@@ -49,7 +49,10 @@ export const editThreadComment = async (req: Request, res: Response) => {
     abortEarly: false,
   });
   const commentService = new CommentService();
-  const result = await commentService.editThreadComment(commentQueryObject, req.body);
+  const result = await commentService.editThreadComment(
+    commentQueryObject,
+    req.body,
+  );
   res.send(result);
 };
 
@@ -66,7 +69,10 @@ export const editPostComment = async (req: Request, res: Response) => {
     abortEarly: false,
   });
   const commentService = new CommentService();
-  const result = await commentService.editPostComment(commentQueryObject, req.body);
+  const result = await commentService.editPostComment(
+    commentQueryObject,
+    req.body,
+  );
   res.send(result);
 };
 

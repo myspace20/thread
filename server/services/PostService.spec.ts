@@ -25,7 +25,9 @@ describe('PostService', () => {
       postRepositoryStub.getById.resolves(dummyPost);
       const result = await postService.getById(id);
       expect(result).toEqual(dummyPost);
-      expect(postRepositoryStub.getById.calledOnceWithExactly(id)).toEqual(true);
+      expect(postRepositoryStub.getById.calledOnceWithExactly(id)).toEqual(
+        true,
+      );
       expect(postService).toBeInstanceOf(PostService);
     });
 
@@ -50,7 +52,9 @@ describe('PostService', () => {
       const result = await postService.create(dummyPost);
       expect(result).toBeDefined();
       expect(result).toEqual({ ...dummyPost, id });
-      expect(postRepositoryStub.create.calledOnceWithExactly(dummyPost)).toEqual(true);
+      expect(
+        postRepositoryStub.create.calledOnceWithExactly(dummyPost),
+      ).toEqual(true);
     });
   });
 
@@ -58,13 +62,15 @@ describe('PostService', () => {
     it('updates a post as accepted', async () => {
       const id = v4();
       const dummyQuery = { thread_id: id, post_id: id, user_id: id };
-      const returnValue = 'post marked as accepted';
+      const returnValue = 'Post marked as accepted';
       postRepositoryStub.getByFilter.resolves({ ...dummyQuery, id });
       postRepositoryStub.patch.resolves(returnValue);
       const result = await postService.setPostAsAccepted(dummyQuery);
       expect(result).toBeDefined();
       expect(result).toEqual(returnValue);
-      expect(postRepositoryStub.getByFilter.calledOnceWithExactly(dummyQuery)).toEqual(true);
+      expect(
+        postRepositoryStub.getByFilter.calledOnceWithExactly(dummyQuery),
+      ).toEqual(true);
     });
 
     it('updates text of post', async () => {
@@ -76,12 +82,16 @@ describe('PostService', () => {
       const result = await postService.editPost(dummyQuery);
       expect(result).toBeDefined();
       expect(result).toEqual(returnValue);
-      expect(postRepositoryStub.getByFilter.calledOnceWithExactly(dummyQuery)).toEqual(true);
+      expect(
+        postRepositoryStub.getByFilter.calledOnceWithExactly(dummyQuery),
+      ).toEqual(true);
     });
 
     it('updates the text of post--error', async () => {
       let error;
-      postRepositoryStub.getByFilter.throws(new HttpError(404, 'post not found'));
+      postRepositoryStub.getByFilter.throws(
+        new HttpError(404, 'post not found'),
+      );
       try {
         await postService.editPost('wrong data');
       } catch (e) {
@@ -96,13 +106,17 @@ describe('PostService', () => {
     it('removes a users post', async () => {
       const id = v4();
       const dummyQuery = { id, thread_id: id, user_id: id };
-      const response = 'post deleted successfully';
+      const response = 'Post deleted successfully';
       postRepositoryStub.getByFilter.resolves(dummyQuery);
       postRepositoryStub.delete.resolves(response);
       const result = await postService.deletePost(dummyQuery);
       expect(result).toEqual(response);
-      expect(postRepositoryStub.getByFilter.calledOnceWithExactly(dummyQuery)).toEqual(true);
-      expect(postRepositoryStub.delete.calledOnceWithExactly(dummyQuery.id)).toEqual(true);
+      expect(
+        postRepositoryStub.getByFilter.calledOnceWithExactly(dummyQuery),
+      ).toEqual(true);
+      expect(
+        postRepositoryStub.delete.calledOnceWithExactly(dummyQuery.id),
+      ).toEqual(true);
     });
   });
 });

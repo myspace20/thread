@@ -8,8 +8,8 @@ class TagService {
     return await this.tagRepository.getById(id);
   }
 
-  async getAllTags() {
-    return await this.tagRepository.get();
+  async getAllTags(options: any) {
+    return await this.tagRepository.get(options);
   }
 
   async createTag(data: createTag) {

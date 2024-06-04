@@ -1,4 +1,10 @@
-import { createThread, tagArray, threadId, threadQuery, threadUpdate } from '../interfaces';
+import {
+  createThread,
+  tagArray,
+  threadId,
+  threadQuery,
+  threadUpdate,
+} from '../interfaces';
 import ThreadRepository from '../repositories/ThreadRepository';
 
 class ThreadService {
@@ -8,8 +14,8 @@ class ThreadService {
     return await this.threadRepository.getById(id);
   }
 
-  async getThreads() {
-    return await this.threadRepository.get();
+  async getThreads(options: any) {
+    return await this.threadRepository.get(options);
   }
 
   async createThread(tags: tagArray, threadData: createThread) {

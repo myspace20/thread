@@ -1,6 +1,9 @@
 import path = require('path');
 
-require('dotenv').config({ path: path.resolve(__dirname, '../.env'), override: true });
+require('dotenv').config({
+  path: path.resolve(__dirname, '../.env'),
+  override: true,
+});
 
 const accessTokenSigningOptions = {
   issuer: 'mychats',
@@ -55,6 +58,10 @@ const mail = {
   supportMail: process.env.REG_EMAIL as string,
 };
 
+const supabaseConnString = process.env.SUPA_BASE_CONN_STRING as string;
+
+const supabaseKey = process.env.SUPA_BASE_KEY as string;
+
 export default {
   accessTokenSigningOptions,
   accessTokenVerifyOptions,
@@ -67,4 +74,6 @@ export default {
   port,
   database,
   mail,
+  supabaseKey,
+  supabaseConnString,
 };

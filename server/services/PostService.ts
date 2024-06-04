@@ -1,7 +1,5 @@
 import { createPost, postId, postQuery, postUpdate } from '../interfaces';
 import PostRepository from '../repositories/PostRepository';
-import ThreadRepository from '../repositories/ThreadRepository';
-import { HttpError } from '../util/HttpError';
 
 class PostService {
   private postRepository = new PostRepository();
@@ -19,7 +17,7 @@ class PostService {
     await this.postRepository.patch(post.id, {
       is_accepted: true,
     });
-    return 'post marked as accepted';
+    return 'Post marked as accepted';
   }
 
   async editPost(query: postQuery, data: postUpdate) {

@@ -5,8 +5,16 @@ import authorization from '../middlewares/authorization';
 
 const router = express.Router();
 
-router.post('/vote/threads/:thread_id', authorization, handlerWrapper(castThreadVote));
+router.post(
+  '/vote/threads/:thread_id',
+  authorization,
+  handlerWrapper(castThreadVote),
+);
 
-router.post('/vote/posts/:post_id', authorization, handlerWrapper(castPostVote));
+router.post(
+  '/vote/posts/:post_id',
+  authorization,
+  handlerWrapper(castPostVote),
+);
 
 export default router;

@@ -9,8 +9,8 @@ class TagRepository {
     return tag;
   }
 
-  async get() {
-    return await TABLE.TAG.query();
+  async get({ offset = 1, limit = 5 }) {
+    return await TABLE.TAG.query().limit(limit).offset(offset);
   }
 
   async create(data: createTag) {

@@ -1,12 +1,13 @@
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 
 class HashService {
-  static async createHash(data: string) {
-    return await bcrypt.hash(data, 10);
+  async createHash(data: string) {
+    const hash = await bcrypt.hash(data, 10);
+    return hash;
   }
 
-  static async verifyHash(plaintext: string, hash: string) {
-    return await bcrypt.hash(plaintext, hash);
+  async verifyHash(plaintext: string, hash: string) {
+    return await bcrypt.compare(plaintext, hash);
   }
 }
 

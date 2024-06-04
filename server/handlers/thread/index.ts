@@ -10,8 +10,9 @@ import {
 import { threadCounter } from '../../util/metrics';
 
 export const threadsGet = async (req: Request, res: Response) => {
+  const options = req.query;
   const threadService = new ThreadService();
-  const threads = await threadService.getThreads();
+  const threads = await threadService.getThreads(options);
   res.send(threads);
 };
 

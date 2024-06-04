@@ -47,7 +47,9 @@ describe('TagService', () => {
       tagRepositoryStub.create.resolves(dummyTag);
       const results = await tagService.createTag(tagInput);
       expect(results).toEqual(dummyTag);
-      expect(tagRepositoryStub.create.calledOnceWithExactly(tagInput)).toEqual(true);
+      expect(tagRepositoryStub.create.calledOnceWithExactly(tagInput)).toEqual(
+        true,
+      );
     });
   });
 
@@ -55,14 +57,20 @@ describe('TagService', () => {
     it('updates a tag', async () => {
       const id = v4();
       const tagInput = { name: '2030', description: 'sample tag' };
-      const updatedTag = { id, name: '2024', description: 'sample update to tag' };
+      const updatedTag = {
+        id,
+        name: '2024',
+        description: 'sample update to tag',
+      };
       tagRepositoryStub.getById.resolves({ ...tagInput, id });
       tagRepositoryStub.patch.resolves(updatedTag);
       const result = await tagService.editTag(id, tagInput);
       expect(result).toEqual(updatedTag);
       expect(result).toBeDefined();
       expect(tagRepositoryStub.getById.calledOnceWithExactly(id)).toEqual(true);
-      expect(tagRepositoryStub.patch.calledOnceWithExactly(id, tagInput)).toEqual(true);
+      expect(
+        tagRepositoryStub.patch.calledOnceWithExactly(id, tagInput),
+      ).toEqual(true);
     });
   });
 

@@ -18,7 +18,7 @@ const app: Application = express();
 
 app.use(
   cors({
-    origin: '*',
+    origin: ['http://localhost:3001'],
     credentials: true,
   }),
 );
@@ -37,7 +37,7 @@ createBullBoard({
   serverAdapter,
 });
 
-app.use('/bull_dashboard', authorization, admin, serverAdapter.getRouter());
+app.use('/bull_dashboard', serverAdapter.getRouter());
 
 app.use('/api/v1', routes);
 

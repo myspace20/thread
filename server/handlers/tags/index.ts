@@ -3,8 +3,9 @@ import TagService from '../../services/TagService';
 import { createTagSchema, editTagSchema, tagParamSchema } from './schema';
 
 export const allTagsGet = async (req: Request, res: Response) => {
+  const options = req.query;
   const tagService = new TagService();
-  const result = await tagService.getAllTags();
+  const result = await tagService.getAllTags(options);
   res.send(result);
 };
 

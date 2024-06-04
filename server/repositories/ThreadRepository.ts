@@ -1,4 +1,10 @@
-import { createThread, tagArray, threadId, threadQuery, threadUpdate } from '../interfaces';
+import {
+  createThread,
+  tagArray,
+  threadId,
+  threadQuery,
+  threadUpdate,
+} from '../interfaces';
 import TABLE from '../models';
 import { HttpError } from '../util/HttpError';
 
@@ -8,7 +14,7 @@ class ThreadRepository {
       .findById(id)
       .modify('defaultSelects')
       .withGraphFetched(
-        '[posts(defaultSelects).[author(authorDetails),comments(defaultSelects),votes],comments(defaultSelects),votes,tags]',
+        `[posts(defaultSelects).[author(authorDetails),comments,votes],comments(defaultSelects),votes,tags,author(authorDetails)]`,
       )
       .modifyGraph('posts.votes', (builder) => {
         builder.select('type').count('type').groupBy('votes.id');
@@ -27,10 +33,12 @@ class ThreadRepository {
     return thread;
   }
 
-  async get() {
+  async get({ limit = 10, offset = 5 }) {
     return await TABLE.THREAD.query()
       .modify('defaultSelects')
-      .withGraphFetched('author(authorDetails)');
+      .withGraphFetched('author(authorDetails)')
+      .limit(limit)
+      .offset(offset);
   }
 
   async create(tags: tagArray, threadData: createThread) {

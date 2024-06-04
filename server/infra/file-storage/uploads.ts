@@ -1,6 +1,6 @@
 import multer, { Multer } from 'multer';
 import { createClient } from '@supabase/supabase-js';
-import config from '../../../../../disease-classifier/config/default';
+import config from '../../../config/default';
 import { decode } from 'base64-arraybuffer';
 import fs from 'fs';
 

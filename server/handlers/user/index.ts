@@ -27,7 +27,7 @@ export const userVerifyAccount = async (req: Request, res: Response) => {
   });
   const userService = new UserService();
   await userService.verifyUserAccount(req.params.token);
-  res.send('account verified successfully');
+  res.send('Account verified successfully');
 };
 
 export const requestUserPasswordReset = async (req: Request, res: Response) => {
@@ -35,7 +35,9 @@ export const requestUserPasswordReset = async (req: Request, res: Response) => {
     abortEarly: false,
   });
   const userService = new UserService();
-  const passwordResetRequest = await userService.requestUserPasswordReset(req.body.email);
+  const passwordResetRequest = await userService.requestUserPasswordReset(
+    req.body.email,
+  );
   res.send(passwordResetRequest);
 };
 
@@ -47,11 +49,15 @@ export const resetUserPassword = async (req: Request, res: Response) => {
     abortEarly: false,
   });
   const userService = new UserService();
-  const passwordReset = await userService.resetUserPassword(req.body.password, req.params.token);
+  const passwordReset = await userService.resetUserPassword(
+    req.body.password,
+    req.params.token,
+  );
   res.send(passwordReset);
 };
 
 export const activateUser = async (req: Request, res: Response) => {
+  //validate file with joi
   const userService = new UserService();
   const image_url = await uploads.uploadToSupabase(req.file);
   const data = {
@@ -62,10 +68,11 @@ export const activateUser = async (req: Request, res: Response) => {
   };
   await activateProfileSchema.validateAsync(data, { abortEarly: false });
   await userService.activateUser(req.user.userId, data);
-  res.send('profile updated sucessfully');
+  res.send('Profile updated sucessfully');
 };
 
 export const updateProfile = async (req: Request, res: Response) => {
+  //validate file with joi
   const userService = new UserService();
   let image;
   if (req.file) {
@@ -79,5 +86,5 @@ export const updateProfile = async (req: Request, res: Response) => {
   };
   await updateProfileSchema.validateAsync(data, { abortEarly: false });
   await userService.activateUser(req.user.userId, data);
-  res.send('profile updated sucessfully');
+  res.send('Profile updated sucessfully');
 };

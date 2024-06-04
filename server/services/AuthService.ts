@@ -6,18 +6,20 @@ import { authId, login } from '../interfaces';
 import HashService from './HashService';
 
 export default class AuthService {
+  private userRepository = new UserRepository();
+  private hashService = new HashService();
+
   async getById(id: authId) {
     const authRepository = new AuthRepository();
     return await authRepository.getById(id);
   }
 
   async login(loginCredentials: login) {
-    const userRepository = new UserRepository();
-    const user = await userRepository.getByEmail(loginCredentials.email);
+    const user = await this.userRepository.getByEmail(loginCredentials.email);
     if (!user) {
       throw new HttpError(409, 'invalid email or password');
     }
-    const passwordMatch = await HashService.verifyHash(
+    const passwordMatch = this.hashService.verifyHash(
       loginCredentials.password,
       user.password_hash,
     );

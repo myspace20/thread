@@ -1,6 +1,12 @@
 import express from 'express';
 import { handlerWrapper } from '../util';
-import { deleteThread, editThread, threadGet, threadPost, threadsGet } from '../handlers/thread';
+import {
+  deleteThread,
+  editThread,
+  threadGet,
+  threadPost,
+  threadsGet,
+} from '../handlers/thread';
 import authorization from '../middlewares/authorization';
 
 const router = express.Router();

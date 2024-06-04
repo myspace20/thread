@@ -13,7 +13,10 @@ export async function up(knex: Knex): Promise<void> {
       table.string('description', 80);
       table.string('image_url');
       table.enum('active', [true, false]).defaultTo(false).notNullable();
-      table.enum('role', ['basic', 'moderator', 'admin']).defaultTo('basic').notNullable();
+      table
+        .enum('role', ['basic', 'moderator', 'admin'])
+        .defaultTo('basic')
+        .notNullable();
       table.boolean('profile_complete').defaultTo(false).notNullable();
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(null);
@@ -24,7 +27,11 @@ export async function up(knex: Knex): Promise<void> {
         .notNullable()
         .defaultTo(knex.raw('uuid_generate_v4()'));
       table.boolean('valid').defaultTo(false);
-      table.uuid('user_id').references('users.id').notNullable().onDelete('CASCADE');
+      table
+        .uuid('user_id')
+        .references('users.id')
+        .notNullable()
+        .onDelete('CASCADE');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(null);
     })
@@ -35,7 +42,11 @@ export async function up(knex: Knex): Promise<void> {
         .defaultTo(knex.raw('uuid_generate_v4()'));
       table.string('title', 120).notNullable();
       table.string('text', 400).notNullable();
-      table.uuid('user_id').references('users.id').notNullable().onDelete('CASCADE');
+      table
+        .uuid('user_id')
+        .references('users.id')
+        .notNullable()
+        .onDelete('CASCADE');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(null);
     })
@@ -46,8 +57,16 @@ export async function up(knex: Knex): Promise<void> {
         .defaultTo(knex.raw('uuid_generate_v4()'));
       table.string('text', 400).notNullable();
       table.boolean('is_accepted').defaultTo(false);
-      table.uuid('thread_id').references('threads.id').notNullable().onDelete('CASCADE');
-      table.uuid('user_id').references('users.id').notNullable().onDelete('CASCADE');
+      table
+        .uuid('thread_id')
+        .references('threads.id')
+        .notNullable()
+        .onDelete('CASCADE');
+      table
+        .uuid('user_id')
+        .references('users.id')
+        .notNullable()
+        .onDelete('CASCADE');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(null);
     })
@@ -57,7 +76,11 @@ export async function up(knex: Knex): Promise<void> {
         .notNullable()
         .defaultTo(knex.raw('uuid_generate_v4()'));
       table.string('text', 150).notNullable();
-      table.uuid('user_id').references('users.id').notNullable().onDelete('CASCADE');
+      table
+        .uuid('user_id')
+        .references('users.id')
+        .notNullable()
+        .onDelete('CASCADE');
       table.uuid('thread_id').references('threads.id').onDelete('CASCADE');
       table.uuid('post_id').references('posts.id').onDelete('CASCADE');
       table.timestamp('created_at').defaultTo(knex.fn.now());
@@ -86,8 +109,16 @@ export async function up(knex: Knex): Promise<void> {
       table.timestamp('updated_at').defaultTo(null);
     })
     .createTable('thread_tags', (table) => {
-      table.uuid('thread_id').references('threads.id').notNullable().onDelete('CASCADE');
-      table.uuid('tag_id').references('tags.id').notNullable().onDelete('CASCADE');
+      table
+        .uuid('thread_id')
+        .references('threads.id')
+        .notNullable()
+        .onDelete('CASCADE');
+      table
+        .uuid('tag_id')
+        .references('tags.id')
+        .notNullable()
+        .onDelete('CASCADE');
     });
 }
 

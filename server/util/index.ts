@@ -4,7 +4,6 @@ import { ValidationError } from 'joi';
 import { mailQueue } from '../workers/email';
 import configs from '../../config/default';
 import { sendMail } from '../interfaces';
-// import configs from "../../config/default";
 
 /*
  * This is from the library https://github.com/Abazhenov/express-async-handler
@@ -30,7 +29,12 @@ export const handlerWrapper = (fn: any) =>
     });
   };
 
-export function errorHandler(err: Error, req: Request, res: Response, _next: NextFunction) {
+export function errorHandler(
+  err: Error,
+  req: Request,
+  res: Response,
+  _next: NextFunction,
+) {
   //   log.error('catch error:', err);
   if (err instanceof HttpError) {
     res.status(err.status).send(err.message);

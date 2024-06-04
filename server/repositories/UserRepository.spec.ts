@@ -26,8 +26,11 @@ describe('UserRepository', () => {
 
   const newUser = {
     email: faker.internet.email({ firstName: 'John', lastName: 'Doe' }),
-    display_name: faker.internet.displayName({ firstName: 'John', lastName: 'Doe' }),
-    password_hash: faker.internet.password(),
+    display_name: faker.internet.displayName({
+      firstName: 'John',
+      lastName: 'Doe',
+    }),
+    password: faker.internet.password(),
   };
 
   describe.skip('create new user', () => {
@@ -35,7 +38,7 @@ describe('UserRepository', () => {
       const user = await userRepository.createNewUser(newUser);
       expect(user.email).toEqual(newUser.email);
       expect(user.display_name).toEqual(newUser.display_name);
-      expect(user.password_hash).toEqual(newUser.password_hash);
+      expect(user.password_hash).toEqual(newUser.password);
     });
   });
 

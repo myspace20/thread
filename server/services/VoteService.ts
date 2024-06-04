@@ -8,10 +8,10 @@ class VoteService {
     const vote = await this.voteRepository.getByFilter(data);
     if (vote) {
       await this.voteRepository.deleteVote(vote.id);
-      return 'vote withdrawn';
+      return 'Vote withdrawn';
     }
     await this.voteRepository.createVote(data);
-    return 'vote casted suceessfully';
+    return 'Vote casted suceessfully';
   }
 }
 

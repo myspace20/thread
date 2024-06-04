@@ -1,16 +1,20 @@
 import { createClient } from 'redis';
 import configs from '../../../config/default';
-import { logger } from '../../util/logger';
 
-const client = createClient({
-  password: configs.redis.password,
-  socket: {
-    host: configs.redis.url,
-    port: Number(configs.redis.port),
-  },
-  legacyMode: true,
-  disableOfflineQueue: true,
-});
+const redisClientInit = async () => {
+  const client = createClient({
+    // password: configs.redis.password,
+    socket: {
+      host: configs.redis.url,
+      port: Number(configs.redis.port),
+    },
+    disableOfflineQueue: true,
+  });
+
+  await client.connect();
+
+  return client;
+};
 
 const redisOptions = {
   redis: {
@@ -20,4 +24,5 @@ const redisOptions = {
   },
 };
 
-export { client, redisOptions };
+export { redisOptions };
+export default redisClientInit;

@@ -1,0 +1,742 @@
+{
+  "info": {
+    "_postman_id": "639399ec-a17e-4593-a31c-0eabdf97bed4",
+    "name": "thread-api",
+    "description": "This is the postman collection for the thread api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+    "_exporter_id": "25756715"
+  },
+  "item": [
+    {
+      "name": "thread",
+      "item": [
+        {
+          "name": "Get all threads",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{endpoint}}/v1/threads"
+          },
+          "response": []
+        },
+        {
+          "name": "Create a new thread",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "title",
+                  "value": "",
+                  "type": "text"
+                },
+                {
+                  "key": "text",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": "{{endpoint}}/v1/threads"
+          },
+          "response": []
+        },
+        {
+          "name": "Get a thread by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{endpoint}}/v1/threads/:id",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "threads", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update a thread",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "title",
+                  "value": "",
+                  "type": "text"
+                },
+                {
+                  "key": "text",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{endpoint}}/v1/threads/:id",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "threads", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a thread",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{endpoint}}/v1/threads/:id",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "threads", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "post",
+      "item": [
+        {
+          "name": "Add a post to a thread",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "text",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{endpoint}}v1/posts/:thread_id",
+              "host": ["{{endpoint}}v1"],
+              "path": ["posts", ":thread_id"],
+              "variable": [
+                {
+                  "key": "thread_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update a post belonging to a thread",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "text",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{endpoint}}/v1/posts/:id/threads/:thread_id",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "posts", ":id", "threads", ":thread_id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                },
+                {
+                  "key": "thread_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Set a post attached to a thread as accepted",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{endpoint}}/v1/posts/:id/threads/:thread_id/set_accepted",
+              "host": ["{{endpoint}}"],
+              "path": [
+                "v1",
+                "posts",
+                ":id",
+                "threads",
+                ":thread_id",
+                "set_accepted"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                },
+                {
+                  "key": "thread_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a post of a thread",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{endpoint}}/v1/posts/:post_id/threads/:thread_id",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "posts", ":post_id", "threads", ":thread_id"],
+              "variable": [
+                {
+                  "key": "post_id",
+                  "value": ""
+                },
+                {
+                  "key": "thread_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "Register a new user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "email",
+                  "value": "test@mail.com",
+                  "type": "default"
+                },
+                {
+                  "key": "password",
+                  "value": "!22343@111",
+                  "type": "default"
+                },
+                {
+                  "key": "display_name",
+                  "value": "test_one",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": "{{endpoint}}/v1/auth/register"
+          },
+          "response": []
+        },
+        {
+          "name": "Log out",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{endpoint}}/v1/auth/logout"
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "email",
+                  "value": "",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": "{{endpoint}}/v1/auth/login"
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh user access token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "email",
+                  "value": "jaxet82403@aersm.com",
+                  "type": "default"
+                },
+                {
+                  "key": "password",
+                  "value": "Around22!",
+                  "type": "default"
+                }
+              ]
+            },
+            "url": "{{endpoint}}/v1/auth/refresh_token"
+          },
+          "response": []
+        },
+        {
+          "name": "Request a password reset",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{endpoint}}/v1/auth/password/request_reset"
+          },
+          "response": []
+        },
+        {
+          "name": "Reset a password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "password",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{endpoint}}/v1/auth/password/reset/:token",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "auth", "password", "reset", ":token"],
+              "variable": [
+                {
+                  "key": "token",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Complete the profile of a user",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "avatar",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": "{{endpoint}}/v1/auth/complete_profile"
+          },
+          "response": []
+        },
+        {
+          "name": "Update the profile of a user",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "description",
+                  "value": "",
+                  "type": "text"
+                },
+                {
+                  "key": "image_url",
+                  "value": "",
+                  "type": "text"
+                },
+                {
+                  "key": "display_name",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": "{{endpoint}}/v1/auth/update_profile"
+          },
+          "response": []
+        }
+      ],
+      "description": "User authentication and update"
+    },
+    {
+      "name": "comment",
+      "item": [
+        {
+          "name": "Add comment to a thread",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "text",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{endpoint}}/v1/comments/threads/:thread_id",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "comments", "threads", ":thread_id"],
+              "variable": [
+                {
+                  "key": "thread_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add comment to a post",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "text",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{endpoint}}/v1/comments/posts/:post_id",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "comments", "posts", ":post_id"],
+              "variable": [
+                {
+                  "key": "post_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update the comment of a thread",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "text",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{endpoint}}/v1/comments/:id/threads/:thread_id",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "comments", ":id", "threads", ":thread_id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                },
+                {
+                  "key": "thread_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update the comment of a post",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "text",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{endpoint}}/v1/comments/:id/posts/:post_id",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "comments", ":id", "posts", ":post_id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                },
+                {
+                  "key": "post_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a comment that belongs to a thread",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{endpoint}}/v1/comments/:id/threads/:thread_id",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "comments", ":id", "threads", ":thread_id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                },
+                {
+                  "key": "thread_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a comment that belongs a post",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{endpoint}}/v1/comments/:id/posts/:post_id",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "comments", ":id", "posts", ":post_id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                },
+                {
+                  "key": "post_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "tag",
+      "item": [
+        {
+          "name": "Create a new tag",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "name",
+                  "value": "",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": "{{endpoint}}/v1/tags"
+          },
+          "response": []
+        },
+        {
+          "name": "Get all tags",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{endpoint}}/v1/tags"
+          },
+          "response": []
+        },
+        {
+          "name": "Update a tag",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "name",
+                  "value": "",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{endpoint}}/v1/tags/:id",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "tags", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remove a tag by id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{endpoint}}/v1/tags/:id",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "tags", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "vote",
+      "item": [
+        {
+          "name": "Add a vote to a thread or delete if one exists",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{endpoint}}/v1/vote/threads/:thread_id",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "vote", "threads", ":thread_id"],
+              "variable": [
+                {
+                  "key": "thread_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add a vote to a post or delete if one exists",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{endpoint}}/v1/vote/posts/:post_id",
+              "host": ["{{endpoint}}"],
+              "path": ["v1", "vote", "posts", ":post_id"],
+              "variable": [
+                {
+                  "key": "post_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "metrics",
+      "item": [
+        {
+          "name": "View or retrieve api metrics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{endpoint}}/v1/metrics"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
