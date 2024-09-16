@@ -5,15 +5,16 @@ import config from '../infra/database/knexfile';
 import knex from 'knex';
 
 describe('UserRepository', () => {
+  let userRepository: UserRepository;
+
   beforeAll(() => {
+    userRepository = new UserRepository();
     Model.knex(knex(config));
   });
 
   afterAll(() => {
     knex(config).destroy();
   });
-
-  const userRepository = new UserRepository();
 
   const userId = 'ea54fcc9-6b58-46b1-bc16-2528698f637b';
 

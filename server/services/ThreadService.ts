@@ -1,4 +1,5 @@
 import {
+  ReqQueryOptions,
   createThread,
   tagArray,
   threadId,
@@ -14,7 +15,7 @@ class ThreadService {
     return await this.threadRepository.getById(id);
   }
 
-  async getThreads(options: any) {
+  async getThreads(options: ReqQueryOptions) {
     return await this.threadRepository.get(options);
   }
 

@@ -24,7 +24,7 @@ export const handlerWrapper = (fn: any) =>
   function wrap(...args: any[]): Promise<any> {
     const fnReturn = fn(...args);
     const next = args[args.length - 1];
-    return Promise.resolve(fnReturn).catch((e) => {
+    return Promise.resolve(fnReturn).catch((e: Error) => {
       next(e);
     });
   };
@@ -52,11 +52,11 @@ export function errorHandler(
 }
 
 export function signUpHtmlContent(registrationId: string) {
-  const verificationUrl = `${configs.host}/auth/email/verify/${registrationId}`;
+  const verificationUrl = `${configs.host}:${configs.port}/api/v1/auth/email/verify/${registrationId}`;
   return `<a href=${verificationUrl}>Click here to verify</a>`;
 }
 export function passwordResetContent(resetId: string) {
-  const verificationUrl = `${configs.host}/auth/verify/${resetId}`;
+  const verificationUrl = `${configs.host}:${configs.port}/api/v1/auth/verify/${resetId}`;
   return `<a href=${verificationUrl}>Click here to reset</a>`;
 }
 

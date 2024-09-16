@@ -1,9 +1,9 @@
-import express from 'express';
-import { handlerWrapper } from '../util';
-import { createUserAccount } from '../handlers/user';
+// import express from 'express';
+// import { handlerWrapper } from '../util';
+// import { createUserAccount } from '../handlers/user';
 
-const router = express.Router();
+// const router = express.Router();
 
-router.get('/');
+// router.get('/');
 
-export default router;
+// export default router;

@@ -4,15 +4,16 @@ import knex from 'knex';
 import TagRepository from './TagRepository';
 
 describe('TagRepository', () => {
+  let tagRepository: TagRepository;
+
   beforeAll(() => {
+    tagRepository = new TagRepository();
     Model.knex(knex(config));
   });
 
   afterAll(() => {
     knex(config).destroy();
   });
-
-  const tagRepository = new TagRepository();
 
   const id = 'b460698d-dc2a-44f0-9817-2241e2dcea7d';
 

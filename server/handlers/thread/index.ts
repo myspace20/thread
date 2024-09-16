@@ -8,9 +8,10 @@ import {
   threadTagList,
 } from './schema';
 import { threadCounter } from '../../util/metrics';
+import { ReqQueryOptions } from '../../interfaces';
 
 export const threadsGet = async (req: Request, res: Response) => {
-  const options = req.query;
+  const options = req.query as unknown as ReqQueryOptions;
   const threadService = new ThreadService();
   const threads = await threadService.getThreads(options);
   res.send(threads);

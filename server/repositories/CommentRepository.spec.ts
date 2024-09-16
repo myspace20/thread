@@ -4,7 +4,10 @@ import config from '../infra/database/knexfile';
 import CommentRepository from './CommentRepository';
 
 describe('CommentRepository', () => {
+  let commmentRepository: CommentRepository;
+
   beforeAll(() => {
+    commmentRepository = new CommentRepository();
     Model.knex(knex(config));
   });
 
@@ -43,8 +46,6 @@ describe('CommentRepository', () => {
     user_id: '5a912383-05f3-496f-964f-0c21a43cfb23',
     thread_id: '2c7b7909-75fc-4c79-8652-29807c24fc3a',
   };
-
-  const commmentRepository = new CommentRepository();
 
   describe('create comment', () => {
     it('creates a post comment', async () => {

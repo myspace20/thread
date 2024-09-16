@@ -14,3 +14,7 @@ mailQueue.process('email', async (job, done) => {
     done();
   }
 });
+
+mailQueue.on('error', (err: any) => {
+  console.log(err);
+});

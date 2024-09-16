@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
 async function uploadToSupabase(file: any) {
   const bitmap = fs.readFileSync(file.path).toString('base64');

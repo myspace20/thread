@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import TagService from '../../services/TagService';
 import { createTagSchema, editTagSchema, tagParamSchema } from './schema';
+import { ReqQueryOptions } from '../../interfaces';
 
 export const allTagsGet = async (req: Request, res: Response) => {
-  const options = req.query;
+  const options = req.query as unknown as ReqQueryOptions;
   const tagService = new TagService();
   const result = await tagService.getAllTags(options);
   res.send(result);

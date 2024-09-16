@@ -4,7 +4,10 @@ import config from '../infra/database/knexfile';
 import PostRepository from './PostRepository';
 
 describe('PostRepository', () => {
+  let postRepository: PostRepository;
+
   beforeAll(() => {
+    postRepository = new PostRepository();
     Model.knex(knex(config));
   });
 
@@ -28,8 +31,6 @@ describe('PostRepository', () => {
   const postUpdate = {
     text: 'test post content updated',
   };
-
-  const postRepository = new PostRepository();
 
   describe('create post', () => {
     it('creates a new post', async () => {

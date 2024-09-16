@@ -21,9 +21,9 @@ async function authorization(req: Request, res: Response, next: NextFunction) {
     req.user = { userId, role, isActive, profileComplete };
   }
 
-  // if(!isActive && !profileComplete){
-  //   return next(new HttpError(401,"Account verification is required"))
-  // }
+  if (!isActive && !profileComplete) {
+    return next(new HttpError(403, 'Account verification is required'));
+  }
 
   next();
 }

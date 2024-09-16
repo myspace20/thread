@@ -205,3 +205,8 @@ export interface sendMail {
   subject: string;
   html: string;
 }
+
+export type ReqQueryOptions = {
+  limit: number;
+  offset: number;
+};
